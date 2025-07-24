@@ -7,7 +7,6 @@ export default function HomePage() {
   return (
     <div>
         <h1>
-            tes
         </h1>
         <Post></Post>
     </div>
