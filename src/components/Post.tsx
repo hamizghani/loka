@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from 'react';
-import { MessageCircle, Repeat2, Heart, BarChart3, Bookmark, Share, MoreHorizontal } from 'lucide-react';
+import { MessageCircle, Repeat2, ChevronUp, ChevronDown, BarChart3, Bookmark, Share, MoreHorizontal } from 'lucide-react';
 
 interface PostProps {
   avatar?: string;
@@ -11,7 +11,8 @@ interface PostProps {
   content?: string;
   replies?: number;
   retweets?: number;
-  likes?: number;
+  upvotes?: number;
+  downvotes?: number;
   views?: number;
   isVerified?: boolean;
 }
@@ -24,19 +25,35 @@ const Post: React.FC<PostProps> = ({
   content = "best birthday ever",
   replies = 4,
   retweets = 0,
-  likes = 3,
+  upvotes = 3,
+  downvotes = 0,
   views = 477,
   isVerified = true
 }) => {
-  const [isLiked, setIsLiked] = useState(false);
+  const [isUpvoted, setIsUpvoted] = useState(false);
+  const [isDownvoted, setIsDownvoted] = useState(false);
   const [isRetweeted, setIsRetweeted] = useState(false);
   const [isBookmarked, setIsBookmarked] = useState(false);
-  const [likeCount, setLikeCount] = useState(likes);
+  const [upvoteCount, setUpvoteCount] = useState(upvotes);
+  const [downvoteCount, setDownvoteCount] = useState(downvotes);
   const [retweetCount, setRetweetCount] = useState(retweets);
 
-  const handleLike = () => {
-    setIsLiked(!isLiked);
-    setLikeCount(isLiked ? likeCount - 1 : likeCount + 1);
+  const handleUpvote = () => {
+    if (isDownvoted) {
+      setIsDownvoted(false);
+      setDownvoteCount(downvoteCount - 1);
+    }
+    setIsUpvoted(!isUpvoted);
+    setUpvoteCount(isUpvoted ? upvoteCount - 1 : upvoteCount + 1);
+  };
+
+  const handleDownvote = () => {
+    if (isUpvoted) {
+      setIsUpvoted(false);
+      setUpvoteCount(upvoteCount - 1);
+    }
+    setIsDownvoted(!isDownvoted);
+    setDownvoteCount(isDownvoted ? downvoteCount - 1 : downvoteCount + 1);
   };
 
   const handleRetweet = () => {
@@ -49,16 +66,16 @@ const Post: React.FC<PostProps> = ({
   };
 
   return (
-    <div className="bg-black text-white border-b border-gray-800 p-4 hover:bg-gray-950 transition-colors cursor-pointer">
+    <div className="bg-white text-gray-900 border-b border-gray-200 p-4 hover:bg-gray-50 transition-colors cursor-pointer">
       <div className="flex space-x-3">
         {/* Avatar */}
         <div className="flex-shrink-0">
-          <div className="w-12 h-12 rounded-full bg-gray-600 flex items-center justify-center overflow-hidden">
+          <div className="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden">
             {avatar ? (
               <img src={avatar} alt={username} className="w-full h-full object-cover" />
             ) : (
-              <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
-                <span className="text-black text-sm font-bold">{username?.charAt(0).toUpperCase()}</span>
+              <div className="w-8 h-8 bg-gray-600 rounded-full flex items-center justify-center">
+                <span className="text-white text-sm font-bold">{username?.charAt(0).toUpperCase()}</span>
               </div>
             )}
           </div>
@@ -68,7 +85,7 @@ const Post: React.FC<PostProps> = ({
         <div className="flex-1 min-w-0">
           {/* Header */}
           <div className="flex items-center space-x-2 mb-1">
-            <span className="font-bold text-white hover:underline">{username}</span>
+            <span className="font-bold text-gray-900 hover:underline">{username}</span>
             {isVerified && (
               <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
                 <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
@@ -80,20 +97,20 @@ const Post: React.FC<PostProps> = ({
             <span className="text-gray-500">·</span>
             <span className="text-gray-500 hover:underline">{timestamp}</span>
             <div className="ml-auto">
-              <MoreHorizontal className="w-5 h-5 text-gray-500 hover:text-gray-300" />
+              <MoreHorizontal className="w-5 h-5 text-gray-500 hover:text-gray-700" />
             </div>
           </div>
 
           {/* Tweet content */}
           <div className="mb-3">
-            <p className="text-white whitespace-pre-wrap">{content}</p>
+            <p className="text-gray-900 whitespace-pre-wrap">{content}</p>
           </div>
 
           {/* Action buttons */}
           <div className="flex items-center justify-between max-w-md">
             {/* Reply */}
-            <button className="flex items-center space-x-2 text-gray-500 hover:text-blue-400 transition-colors group">
-              <div className="p-2 rounded-full group-hover:bg-blue-900/20">
+            <button className="flex items-center space-x-2 text-gray-500 hover:text-blue-600 transition-colors group">
+              <div className="p-2 rounded-full group-hover:bg-blue-100">
                 <MessageCircle className="w-5 h-5" />
               </div>
               {replies > 0 && <span className="text-sm">{replies}</span>}
@@ -103,31 +120,44 @@ const Post: React.FC<PostProps> = ({
             <button 
               onClick={handleRetweet}
               className={`flex items-center space-x-2 transition-colors group ${
-                isRetweeted ? 'text-green-400' : 'text-gray-500 hover:text-green-400'
+                isRetweeted ? 'text-green-600' : 'text-gray-500 hover:text-green-600'
               }`}
             >
-              <div className="p-2 rounded-full group-hover:bg-green-900/20">
+              <div className="p-2 rounded-full group-hover:bg-green-100">
                 <Repeat2 className="w-5 h-5" />
               </div>
               {retweetCount > 0 && <span className="text-sm">{retweetCount}</span>}
             </button>
 
-            {/* Like */}
+            {/* Upvote */}
             <button 
-              onClick={handleLike}
+              onClick={handleUpvote}
               className={`flex items-center space-x-2 transition-colors group ${
-                isLiked ? 'text-red-500' : 'text-gray-500 hover:text-red-400'
+                isUpvoted ? 'text-orange-600' : 'text-gray-500 hover:text-orange-600'
               }`}
             >
-              <div className="p-2 rounded-full group-hover:bg-red-900/20">
-                <Heart className={`w-5 h-5 ${isLiked ? 'fill-current' : ''}`} />
+              <div className="p-2 rounded-full group-hover:bg-orange-100">
+                <ChevronUp className={`w-5 h-5 ${isUpvoted ? 'fill-current' : ''}`} />
               </div>
-              {likeCount > 0 && <span className="text-sm">{likeCount}</span>}
+              {upvoteCount > 0 && <span className="text-sm">{upvoteCount}</span>}
+            </button>
+
+            {/* Downvote */}
+            <button 
+              onClick={handleDownvote}
+              className={`flex items-center space-x-2 transition-colors group ${
+                isDownvoted ? 'text-purple-600' : 'text-gray-500 hover:text-purple-600'
+              }`}
+            >
+              <div className="p-2 rounded-full group-hover:bg-purple-100">
+                <ChevronDown className={`w-5 h-5 ${isDownvoted ? 'fill-current' : ''}`} />
+              </div>
+              {downvoteCount > 0 && <span className="text-sm">{downvoteCount}</span>}
             </button>
 
             {/* Views */}
-            <button className="flex items-center space-x-2 text-gray-500 hover:text-blue-400 transition-colors group">
-              <div className="p-2 rounded-full group-hover:bg-blue-900/20">
+            <button className="flex items-center space-x-2 text-gray-500 hover:text-blue-600 transition-colors group">
+              <div className="p-2 rounded-full group-hover:bg-blue-100">
                 <BarChart3 className="w-5 h-5" />
               </div>
               <span className="text-sm">{views}</span>
@@ -138,12 +168,12 @@ const Post: React.FC<PostProps> = ({
               <button 
                 onClick={handleBookmark}
                 className={`p-2 rounded-full transition-colors ${
-                  isBookmarked ? 'text-blue-400' : 'text-gray-500 hover:text-blue-400'
-                } hover:bg-blue-900/20`}
+                  isBookmarked ? 'text-blue-600' : 'text-gray-500 hover:text-blue-600'
+                } hover:bg-blue-100`}
               >
                 <Bookmark className={`w-5 h-5 ${isBookmarked ? 'fill-current' : ''}`} />
               </button>
-              <button className="p-2 rounded-full text-gray-500 hover:text-blue-400 hover:bg-blue-900/20 transition-colors">
+              <button className="p-2 rounded-full text-gray-500 hover:text-blue-600 hover:bg-blue-100 transition-colors">
                 <Share className="w-5 h-5" />
               </button>
             </div>

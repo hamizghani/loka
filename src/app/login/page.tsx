@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Eye, EyeOff, Mail, Lock, User, ArrowRight } from 'lucide-react';
 
 const LokaAuth = () => {
@@ -8,6 +8,7 @@ const LokaAuth = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // New state for actual login status
   
   const [formData, setFormData] = useState({
     email: '',
@@ -15,6 +16,14 @@ const LokaAuth = () => {
     confirmPassword: '',
     fullName: ''
   });
+
+  // Check if user is already logged in on component mount
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -48,19 +57,51 @@ const LokaAuth = () => {
       const data = await response.json();
       
       if (response.ok) {
-        // Handle success - redirect or store token
+        // Handle success - store token and set logged in state
         console.log('Success:', data);
-        // Example: localStorage.setItem('token', data.token);
-        // Example: router.push('/dashboard');
+        
+        // Store token in localStorage
+        localStorage.setItem('token', data.token);
+        
+        // Set the logged in state to true
+        setIsLoggedIn(true);
+        
+        // Optional: Clear form data
+        setFormData({
+          email: '',
+          password: '',
+          confirmPassword: '',
+          fullName: ''
+        });
+        
+        // Optional: Redirect to dashboard
+        // window.location.href = '/dashboard';
+        // or if using Next.js router:
+        // router.push('/dashboard');
+        
       } else {
         // Handle error
         console.error('Error:', data.message);
+        // Optional: Show error message to user
+        alert(data.message || 'Authentication failed');
       }
     } catch (error) {
       console.error('Network error:', error);
+      alert('Network error. Please try again.');
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    setFormData({
+      email: '',
+      password: '',
+      confirmPassword: '',
+      fullName: ''
+    });
   };
 
   const switchMode = () => {
@@ -73,19 +114,47 @@ const LokaAuth = () => {
     });
   };
 
+  // If user is logged in, show a different UI
+  if (isLoggedIn) {
+    return (
+      <div className="min-h-screen bg-white flex items-center justify-center p-4">
+        <div className="w-full max-w-md text-center">
+          <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+            <img 
+              src="/images/loka-logo.png" 
+              alt="Loka Logo" 
+              className="h-16 w-auto mx-auto mb-4"
+            />
+            <h2 className="text-2xl font-bold text-black mb-4">Welcome!</h2>
+            <p className="text-gray-600 mb-6">You are successfully logged in.</p>
+            <button
+              onClick={handleLogout}
+              className="w-full bg-red-600 text-white py-3 px-4 rounded-lg font-medium hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2 transition-all"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-white flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        {/* Logo/Brand */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-black mb-2">Loka</h1>
-          <p className="text-gray-600">
-            {isLogin ? 'Welcome back' : 'Create your account'}
-          </p>
-        </div>
-
         {/* Auth Form */}
         <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
+          <div className="text-center mb-8">
+            <img 
+              src="/images/loka-logo.png" 
+              alt="Loka Logo" 
+              className="h-16 w-auto mx-auto mb-4"
+            />
+            <p className="text-gray-600">
+              {isLogin ? 'Welcome Back' : 'Create your account'}
+            </p>
+          </div>
+          
           <div className="space-y-6">
             {/* Full Name - Only for signup */}
             {!isLogin && (
