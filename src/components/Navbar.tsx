@@ -121,25 +121,6 @@ const NavItem = ({ item, isActive, handleItemClick }: NavItemProps) => (
             } }          />
         </div>
       </div>
-
-      {/* Demo Content Area */}
-      <div className="md:ml-64 p-6 pb-20 md:pb-6 min-h-screen bg-gray-50">
-        <h1 className="text-2xl font-bold mb-4">Social Media Dashboard</h1>
-        <div className="bg-white rounded-lg p-6 shadow-sm">
-          <h2 className="text-lg font-semibold mb-2">
-            Currently viewing: {navItems.find(item => item.id === activeItem)?.label || profileItem.label}
-          </h2>
-          <p className="text-gray-600">
-            This is your main content area. The navbar is responsive - on desktop it appears as a sidebar on the left, 
-            and on mobile it transforms into a bottom navigation bar.
-          </p>
-          <div className="mt-4 p-4 bg-gray-50 rounded">
-            <p className="text-sm text-gray-500">
-              Try resizing your browser window or viewing on mobile to see the responsive behavior!
-            </p>
-          </div>
-        </div>
-      </div>
     </>
   );
 };
