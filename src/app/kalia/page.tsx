@@ -1,1 +1,0 @@
-// del pindahin aja yang dari monq dulu

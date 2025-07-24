@@ -1,45 +1,64 @@
 "use client";
 import React, { useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation'; // Import useRouter
 import {
+  Home,
   Search,
   Bot,
   Bell,
   MessageCircle,
   User
 } from 'lucide-react';
- 
+
 const Navbar = () => {
   const [activeItem, setActiveItem] = useState('home');
- 
+  const router = useRouter(); // Initialize useRouter
+
+  // Define paths for each navigation item
+  const itemPaths: { [key: string]: string } = {
+    home: '/',
+    hom: '/',
+    explore: '/explore',
+    llm: '/kaila',
+    notifications: '/notifications',
+    messages: '/messages',
+    profile: '/profile', // Add path for profile
+  };
+
   const navItems = [
     { id: 'home', label: '', isLogo: true },
+    {id: 'hom', icon: Home, label: ''},
     { id: 'explore', icon: Search, label: '' },
     { id: 'llm', icon: Bot, label: '' },
     { id: 'notifications', icon: Bell, label: '' },
     { id: 'messages', icon: MessageCircle, label: '' },
   ];
- 
+
   const profileItem = { id: 'profile', icon: User, label: '' };
- 
+
   const handleItemClick = (itemId: string) => {
     setActiveItem(itemId);
+    const path = itemPaths[itemId];
+    if (path) {
+      router.push(path); // Navigate to the corresponding path
+    }
   };
- 
+
   interface NavItemType {
     id: string;
     label: string;
     icon?: React.ElementType;
     isLogo?: boolean;
   }
- 
+
   interface NavItemProps {
     item: NavItemType;
     isActive: boolean;
     isProfile?: boolean;
     noHoverBg?: boolean;
   }
- 
+
   const NavItem = ({ item, isActive, noHoverBg = false }: NavItemProps) => (
     <button
       onClick={() => handleItemClick(item.id)}
@@ -48,13 +67,13 @@ const Navbar = () => {
         transition-all duration-200 ease-in-out group relative
         cursor-pointer /* Added this line */
         ${item.isLogo ? 'mb-2' : ''}
- 
+
         ${/* Desktop specific width and alignment */''}
         md:w-auto md:justify-start
- 
+
         ${/* Mobile specific width to ensure centering */''}
         w-full
- 
+
         ${/* Conditional styling based on noHoverBg */''}
         ${noHoverBg
           ? `
@@ -104,14 +123,14 @@ const Navbar = () => {
       `}>
         {item.label}
       </span>
- 
+
       {/* Mobile label tooltip */}
       <div className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-black text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 md:hidden pointer-events-none whitespace-nowrap">
         {item.label}
       </div>
     </button>
   );
- 
+
   return (
     <>
       {/* Desktop Sidebar */}
@@ -127,7 +146,7 @@ const Navbar = () => {
             />
           ))}
         </div>
- 
+
         {/* Profile at bottom */}
         <div className="mt-auto">
           <NavItem
@@ -137,7 +156,7 @@ const Navbar = () => {
           />
         </div>
       </div>
- 
+
       {/* Mobile Bottom Navigation */}
       <div className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-2 py-2 z-50">
         <div className="flex justify-around items-center">
@@ -159,5 +178,5 @@ const Navbar = () => {
     </>
   );
 };
- 
+
 export default Navbar;
