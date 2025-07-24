@@ -20,7 +20,7 @@ const Navbar = () => {
     home: '/',
     hom: '/',
     explore: '/explore',
-    llm: '/kaila',
+    llm: '/kalia',
     notifications: '/notifications',
     messages: '/messages',
     profile: '/profile', // Add path for profile
