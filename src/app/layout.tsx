@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
 
 export const metadata: Metadata = {
   title: "Loka",
@@ -16,6 +17,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="bg-white">
         {children}
+      <Navbar />  
       </body>
     </html>
   );
