@@ -13,11 +13,11 @@ const Navbar = () => {
   const [activeItem] = useState('home');
 
   const navItems = [
-    { id: 'home', icon: Home, label: 'Home', isLogo: true },
-    { id: 'explore', icon: Search, label: 'Explore' },
-    { id: 'llm', icon: Bot, label: 'LLM' },
-    { id: 'notifications', icon: Bell, label: 'Notifications' },
-    { id: 'messages', icon: MessageCircle, label: 'Messages' },
+    { id: 'home', icon: Home, label: '', isLogo: true },
+    { id: 'explore', icon: Search, label: '' },
+    { id: 'llm', icon: Bot, label: '' },
+    { id: 'notifications', icon: Bell, label: '' },
+    { id: 'messages', icon: MessageCircle, label: '' },
   ];
 
   const profileItem = { id: 'profile', icon: User, label: 'Profile' };
@@ -50,7 +50,7 @@ const NavItem = ({ item, isActive, handleItemClick }: NavItemProps) => (
           : 'text-gray-600 hover:bg-gray-50 hover:text-black'
         }
         ${item.isLogo ? 'mb-2' : ''}
-        w-full md:w-auto
+        w-20 md:w-auto
       `}
     >
       <item.icon
@@ -78,7 +78,7 @@ const NavItem = ({ item, isActive, handleItemClick }: NavItemProps) => (
   return (
     <>
       {/* Desktop Sidebar */}
-      <div className="hidden md:flex flex-col h-screen w-64 bg-white border-r border-gray-200 fixed left-0 top-0 p-4">
+      <div className="hidden md:flex flex-col h-screen w-32 bg-white border-r border-gray-200 fixed left-0 top-0 p-4">
         {/* Main navigation items */}
         <div className="flex flex-col space-y-2">
           {navItems.map((item) => (
