@@ -1,36 +1,73 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+🪷 LOKA - Reclaiming Culture Through Technology
+"How can we capture culture, connect people, and preserve it effectively?"
 
-## Getting Started
+📌 Situation
+Indonesia is one of the most culturally rich nations in the world:
 
-First, run the development server:
+1,300+ ethnic groups
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+700+ regional languages
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+676 total elements listed in UNESCO’s Intangible Cultural Heritage (ICH) registry
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Yet, only 16 of those come from Indonesia.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Urbanization is accelerating:
 
-## Learn More
+59% of Indonesians now live in cities, weakening ties with rural heritage
 
-To learn more about Next.js, take a look at the following resources:
+Cultural practices are fading as younger generations disconnect from their roots
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+⚠️ Issues
+Cultural knowledge is fragmented and underrepresented, especially in digital platforms
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Lack of incentives for people to share and preserve local traditions
 
-## Deploy on Vercel
+AI and tech adoption in the cultural preservation space is minimal
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Limited recognition for cultural contributors and storytellers
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+❓ Key Question
+How can we capture culture, connect people, and preserve it effectively in the digital age?
+
+💡 Solution: LOKA
+LOKA is a cultural storytelling platform that bridges generations through technology.
+It allows users to share, connect, and learn about Indonesian culture with the help of AI and interactive features.
+
+🔗 Core Features
+📖 Share & Connect
+A space where users can upload cultural stories, explore traditions, and message others with similar roots.
+
+🃏 Cultural Cards
+Story contributors gain ranks, rewards, and visibility. The more value they give, the more value they receive.
+
+🤖 Kalia (AI Companion)
+A cultural AI chatbot & search engine trained to answer user queries about Indonesian heritage, places, practices, and more.
+
+🗺️ Heritage Sites Mapping
+Spotlight underrepresented cultural landmarks and connect them to national narratives.
+
+📈 Impact
+Stakeholder	Impact
+🏛 Government	Boost in sustainable tourism and national cultural identity
+👥 Individual	Access to knowledge, reconnection with roots, and community engagement
+🌍 Global	Increased global visibility of Indonesia's unique cultural heritage
+
+Economic impact potential: 6T+ IDR
+
+Enhanced recognition of overlooked traditions
+
+Community-driven preservation of culture
+
+⚙️ Tech Stack
+Layer	Technology
+Frontend	Next.js
+Styling	Tailwind CSS
+AI Integration	OpenAI API
+
+🌐 Sources & References
+Our World In Data, 2023
+
+[KK Advocates, 2022]
+
+UNESCO ICH Registry, 2024
