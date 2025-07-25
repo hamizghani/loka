@@ -98,7 +98,7 @@ export default function HomePage() {
             {/* ... rest of your JSX remains the same ... */}
             <div className="flex-1 border-b border-gray-300 bg-gray-100 p-4">
                 <h2 className="mb-4 text-xl font-bold text-gray-800">For You</h2>
-                <PopularContent />
+                {/* <PopularContent /> */}
             </div>
             
             <div className="flex-1 bg-white p-4">
