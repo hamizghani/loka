@@ -18,6 +18,8 @@ interface PostProps {
   isVerified?: boolean;
 }
 
+const MAX_CONTENT_LENGTH = 200;
+
 const Post: React.FC<PostProps> = ({
   avatar = "https://pbs.twimg.com/profile_images/1234567890/avatar.jpg",
   username = "demorghan",
@@ -38,6 +40,9 @@ const Post: React.FC<PostProps> = ({
   const [upvoteCount, setUpvoteCount] = useState(upvotes);
   const [downvoteCount, setDownvoteCount] = useState(downvotes);
   const [retweetCount, setRetweetCount] = useState(retweets);
+
+  // For Read More
+  const [showFullContent, setShowFullContent] = useState(false);
 
   const handleUpvote = () => {
     if (isDownvoted) {
@@ -65,6 +70,12 @@ const Post: React.FC<PostProps> = ({
   const handleBookmark = () => {
     setIsBookmarked(!isBookmarked);
   };
+
+  // Content logic for "Read more"
+  const isLongContent = content && content.length > MAX_CONTENT_LENGTH;
+  const displayedContent = !isLongContent || showFullContent
+    ? content
+    : content?.slice(0, MAX_CONTENT_LENGTH);
 
   return (
     <div className="bg-white text-gray-900 border-b border-gray-200 p-4 hover:bg-gray-50 transition-colors cursor-pointer">
@@ -104,14 +115,31 @@ const Post: React.FC<PostProps> = ({
 
           {/* Tweet content */}
           <div className="mb-3">
-            <p className="text-gray-900 whitespace-pre-wrap">{content}</p>
+            <p className="text-gray-900 whitespace-pre-wrap">
+              {displayedContent}
+              {isLongContent && !showFullContent && (
+                <>
+                  ...{" "}
+                  {/* Color of read more */}
+                  <button
+                    className="text-red-600 font-semibold hover:underline focus:outline-none"
+                    onClick={e => {
+                      e.stopPropagation();
+                      setShowFullContent(true);
+                    }}
+                  >
+                    Read more
+                  </button>
+                </>
+              )}
+            </p>
           </div>
 
           {/* Action buttons */}
           <div className="flex items-center justify-between max-w-md">
             {/* Reply */}
-            <button className="flex items-center space-x-2 text-gray-500 hover:text-blue-600 transition-colors group">
-              <div className="p-2 rounded-full group-hover:bg-blue-100">
+            <button className="flex items-center space-x-2 text-gray-500 hover:text-red-600 transition-colors group">
+              <div className="p-2 rounded-full group-hover:bg-red-100">
                 <MessageCircle className="w-5 h-5" />
               </div>
               {replies > 0 && <span className="text-sm">{replies}</span>}
@@ -121,10 +149,10 @@ const Post: React.FC<PostProps> = ({
             <button 
               onClick={handleRetweet}
               className={`flex items-center space-x-2 transition-colors group ${
-                isRetweeted ? 'text-green-600' : 'text-gray-500 hover:text-green-600'
+                isRetweeted ? 'text-red-600' : 'text-gray-500 hover:text-red-600'
               }`}
             >
-              <div className="p-2 rounded-full group-hover:bg-green-100">
+              <div className="p-2 rounded-full group-hover:bg-red-100">
                 <Repeat2 className="w-5 h-5" />
               </div>
               {retweetCount > 0 && <span className="text-sm">{retweetCount}</span>}
@@ -134,10 +162,10 @@ const Post: React.FC<PostProps> = ({
             <button 
               onClick={handleUpvote}
               className={`flex items-center space-x-2 transition-colors group ${
-                isUpvoted ? 'text-orange-600' : 'text-gray-500 hover:text-orange-600'
+                isUpvoted ? 'text-red-600' : 'text-gray-500 hover:text-red-600'
               }`}
             >
-              <div className="p-2 rounded-full group-hover:bg-orange-100">
+              <div className="p-2 rounded-full group-hover:bg-red-100">
                 <ChevronUp className={`w-5 h-5 ${isUpvoted ? 'fill-current' : ''}`} />
               </div>
               {upvoteCount > 0 && <span className="text-sm">{upvoteCount}</span>}
@@ -147,18 +175,18 @@ const Post: React.FC<PostProps> = ({
             <button 
               onClick={handleDownvote}
               className={`flex items-center space-x-2 transition-colors group ${
-                isDownvoted ? 'text-purple-600' : 'text-gray-500 hover:text-purple-600'
+                isDownvoted ? 'text-red-600' : 'text-gray-500 hover:text-red-600'
               }`}
             >
-              <div className="p-2 rounded-full group-hover:bg-purple-100">
+              <div className="p-2 rounded-full group-hover:bg-red-100">
                 <ChevronDown className={`w-5 h-5 ${isDownvoted ? 'fill-current' : ''}`} />
               </div>
               {downvoteCount > 0 && <span className="text-sm">{downvoteCount}</span>}
             </button>
 
             {/* Views */}
-            <button className="flex items-center space-x-2 text-gray-500 hover:text-blue-600 transition-colors group">
-              <div className="p-2 rounded-full group-hover:bg-blue-100">
+            <button className="flex items-center space-x-2 text-gray-500 hover:text-red-600 transition-colors group">
+              <div className="p-2 rounded-full group-hover:bg-red-100">
                 <BarChart3 className="w-5 h-5" />
               </div>
               <span className="text-sm">{views}</span>
@@ -169,12 +197,12 @@ const Post: React.FC<PostProps> = ({
               <button 
                 onClick={handleBookmark}
                 className={`p-2 rounded-full transition-colors ${
-                  isBookmarked ? 'text-blue-600' : 'text-gray-500 hover:text-blue-600'
-                } hover:bg-blue-100`}
+                  isBookmarked ? 'text-red-600' : 'text-gray-500 hover:text-red-600'
+                } hover:bg-red-100`}
               >
                 <Bookmark className={`w-5 h-5 ${isBookmarked ? 'fill-current' : ''}`} />
               </button>
-              <button className="p-2 rounded-full text-gray-500 hover:text-blue-600 hover:bg-blue-100 transition-colors">
+              <button className="p-2 rounded-full text-gray-500 hover:text-red-600 hover:bg-red-100 transition-colors">
                 <Share className="w-5 h-5" />
               </button>
             </div>
