@@ -34,6 +34,16 @@ export default function CulturalCard({
     }, 300);
   };
 
+  // Crop settings for 1728x1080 image, e.g., show center 60% width and 70% height
+  // You can adjust objectPosition as needed for your desired crop
+  const cropStyle = {
+    objectFit: 'cover',
+    width: '100%',
+    height: '100%',
+    objectPosition: 'center center',
+    // Optionally, you can use a container with aspect ratio to crop further
+  };
+
   return (
     <div className="w-full h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
       {/* Background pattern */}
@@ -53,38 +63,16 @@ export default function CulturalCard({
             <div className="absolute inset-0 w-full h-full backface-hidden">
               <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl">
                 <img
-                //   src={`/images/card-${cardNumber}-front.png`}
-                  alt={`Cultural card ${cardNumber} front`}
+                  src="/images/image36.png"
+                  alt="Cultural card front"
                   className="w-full h-full object-cover cursor-pointer transition-transform duration-500 hover:scale-105"
-                  onClick={handleFlip}
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.src = `data:image/svg+xml,${encodeURIComponent(`
-                      <svg width="800" height="600" xmlns="http://www.w3.org/2000/svg">
-                        <defs>
-                          <pattern id="wood" patternUnits="userSpaceOnUse" width="100" height="100">
-                            <rect width="100" height="100" fill="#2D1810"/>
-                            <path d="M0,10 Q50,20 100,10 T200,10" stroke="#3D2818" stroke-width="2" fill="none"/>
-                            <path d="M0,30 Q50,40 100,30 T200,30" stroke="#3D2818" stroke-width="1" fill="none"/>
-                          </pattern>
-                        </defs>
-                        <rect width="100%" height="100%" fill="url(#wood)"/>
-                        <rect x="20" y="20" width="120" height="120" fill="#8B4513" rx="15"/>
-                        <text x="400" y="120" text-anchor="middle" fill="#D4AF37" font-size="32" font-family="serif" font-weight="bold">
-                          ${name.toUpperCase()}
-                        </text>
-                        <text x="400" y="160" text-anchor="middle" fill="#D4AF37" font-size="18" font-family="serif">
-                          ${age} YEARS OLD
-                        </text>
-                        <text x="400" y="190" text-anchor="middle" fill="#D4AF37" font-size="18" font-family="serif">
-                          ${ethnicity.toUpperCase()}
-                        </text>
-                        <text x="400" y="500" text-anchor="middle" fill="#D4AF37" font-size="16" font-family="serif">
-                          TRUSTED STAR
-                        </text>
-                      </svg>
-                    `)}`;
+                  style={{
+                    objectFit: 'cover' as const,
+                    width: '100%',
+                    height: '100%',
+                    objectPosition: 'center center' as const,
                   }}
+                  onClick={handleFlip}
                 />
                 
                 {/* Click indicator overlay */}
@@ -98,74 +86,77 @@ export default function CulturalCard({
               </div>
             </div>
 
-            {/* Back Side - Fixed mirroring issue */}
+            {/* Back Side - Show same image as front, cropped */}
             <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180" style={{ transform: 'rotateY(180deg) scaleX(-1)' }}>
-              <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-gray-900 to-black border-4 border-purple-500">
-                {/* Back content */}
-                <div className="relative w-full h-full p-8 flex flex-col justify-between text-white">
-                  {/* Header */}
-                  <div className="space-y-4">
-                    <div className="text-center">
-                      <h3 className="text-lg font-mono text-gray-300 mb-2">Cultural Card Number</h3>
-                      <div className="text-2xl font-mono tracking-wider text-white">
-                        {String(cardNumber).padStart(4, '0')} {cardId1} {cardId2} {cardId3}
-                      </div>
+              <img
+                src="/images/image36.png"
+                alt="Cultural card back"
+                className="absolute inset-0 w-full h-full object-cover rounded-2xl z-0"
+                style={{
+                  objectFit: 'cover' as const,
+                  width: '100%',
+                  height: '100%',
+                  objectPosition: 'center center' as const,
+                  transform: 'rotateY(180deg) scaleX(-1)'
+                }}
+              />
+              {/* Back content overlay */}
+              <div className="relative w-full h-full p-8 flex flex-col justify-between text-white">
+                {/* Header */}
+                <div className="space-y-4">
+                  <div className="text-center">
+                    <h3 className="text-lg font-mono text-gray-300 mb-2">Cultural Card Number</h3>
+                    <div className="text-2xl font-mono tracking-wider text-white">
+                      {String(cardNumber).padStart(4, '0')} {cardId1} {cardId2} {cardId3}
                     </div>
-                  </div>
-
-                  {/* Main content */}
-                  <div className="flex-1 flex items-start justify-between pt-8">
-                    <div className="flex-1 space-y-4">
-                      <div className="space-y-2">
-                        <div className="text-lg font-semibold text-purple-300">Name:</div>
-                        <div className="text-xl text-white">{name}</div>
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <div className="text-lg font-semibold text-purple-300">Age:</div>
-                        <div className="text-xl text-white">{age} years old</div>
-                      </div>
-                      
-                      <div className="space-y-2">
-                        <div className="text-lg font-semibold text-purple-300">Ethnicity:</div>
-                        <div className="text-xl text-white">{ethnicity}</div>
-                      </div>
-                      
-                      <div className="space-y-2 mt-6">
-                        <div className="text-lg font-semibold text-purple-300">Description:</div>
-                        <div className="text-base text-gray-200 leading-relaxed max-w-md">
-                          {description}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Barcode */}
-                    <div className="flex flex-col items-end space-y-1 ml-8">
-                      <div className="text-xs text-gray-400 mb-2">{barcodeId}</div>
-                      {Array.from({ length: 15 }, (_, i) => (
-                        <div 
-                          key={i}
-                          className="bg-white h-2 rounded-sm"
-                          style={{ 
-                            width: `${generateDeterministicNumber(cardNumber * (i + 1), 0, 1) > 0.5 ? 4 : 2}px`,
-                            marginBottom: '1px'
-                          }}
-                        />
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Footer */}
-                  <div className="text-center text-xs text-gray-400 border-t border-gray-700 pt-4">
-                    © 2025 LOKA Corporations. All rights reserved. {footerId}
                   </div>
                 </div>
-
+                {/* Main content */}
+                <div className="flex-1 flex items-start justify-between pt-8">
+                  <div className="flex-1 space-y-4">
+                    <div className="space-y-2">
+                      <div className="text-lg font-semibold text-purple-300">Name:</div>
+                      <div className="text-xl text-white">{name}</div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="text-lg font-semibold text-purple-300">Age:</div>
+                      <div className="text-xl text-white">{age} years old</div>
+                    </div>
+                    <div className="space-y-2">
+                      <div className="text-lg font-semibold text-purple-300">Ethnicity:</div>
+                      <div className="text-xl text-white">{ethnicity}</div>
+                    </div>
+                    <div className="space-y-2 mt-6">
+                      <div className="text-lg font-semibold text-purple-300">Description:</div>
+                      <div className="text-base text-gray-200 leading-relaxed max-w-md">
+                        {description}
+                      </div>
+                    </div>
+                  </div>
+                  {/* Barcode */}
+                  <div className="flex flex-col items-end space-y-1 ml-8">
+                    <div className="text-xs text-gray-400 mb-2">{barcodeId}</div>
+                    {Array.from({ length: 15 }, (_, i) => (
+                      <div 
+                        key={i}
+                        className="bg-white h-2 rounded-sm"
+                        style={{ 
+                          width: `${generateDeterministicNumber(cardNumber * (i + 1), 0, 1) > 0.5 ? 4 : 2}px`,
+                          marginBottom: '1px'
+                        }}
+                      />
+                    ))}
+                  </div>
+                </div>
+                {/* Footer */}
+                <div className="text-center text-xs text-gray-400 border-t border-gray-700 pt-4">
+                  © 2025 LOKA Corporations. All rights reserved. {footerId}
+                </div>
                 {/* Click to flip back */}
                 <div 
                   className="absolute inset-0 cursor-pointer"
                   onClick={handleFlip}
-                />
+                ></div>
               </div>
             </div>
           </div>
