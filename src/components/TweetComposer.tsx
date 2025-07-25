@@ -47,20 +47,20 @@ const TweetComposer = ({ onPostSubmit }: TweetComposerProps) => {
             onChange={(e) => setTweet(e.target.value)}
           ></textarea>
           <div className="mt-4 flex items-center justify-between">
-            <div className="flex space-x-2 text-blue-500 sm:space-x-4">
-              <button className="transform p-2 text-xl transition-transform duration-200 ease-out hover:scale-125 hover:text-blue-600">
+            <div className="flex space-x-2 text-red-400 sm:space-x-4">
+              <button className="transform p-2 text-xl transition-transform duration-200 ease-out hover:scale-125 hover:text-red-600">
                 <FiImage />
               </button>
-              <button className="transform p-2 text-xl transition-transform duration-200 ease-out hover:scale-125 hover:text-blue-600">
+              <button className="transform p-2 text-xl transition-transform duration-200 ease-out hover:scale-125 hover:text-red-600">
                 <FaMicrophone />
               </button>
-              <button className="transform p-2 text-xl transition-transform duration-200 ease-out hover:scale-125 hover:text-blue-600">
+              <button className="transform p-2 text-xl transition-transform duration-200 ease-out hover:scale-125 hover:text-red-600">
                 <FiSmile />
               </button>
             </div>
             <button
               onClick={handlePostClick} // <-- Add the onClick handler here
-              className="transform rounded-full bg-blue-500 px-6 py-2 font-bold text-white transition-transform duration-200 hover:scale-105 hover:bg-blue-600 disabled:scale-100 disabled:opacity-50"
+              className="transform rounded-full bg-red-500 px-6 py-2 font-bold text-white transition-transform duration-200 hover:scale-105 hover:bg-red-600 disabled:scale-100 disabled:opacity-50"
               disabled={!tweet.trim()}
             >
               Post

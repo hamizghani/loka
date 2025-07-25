@@ -66,7 +66,7 @@ export default function PopularContent({ items = defaultItems }: PopularContentP
         {items.slice(currentIndex, currentIndex + itemsToShow).map((item, index) => (
           <div 
             key={item.id}
-            className="group relative aspect-[3/4] flex-shrink-0 overflow-hidden rounded-lg cursor-pointer transform transition-all duration-300 hover:scale-105 hover:z-10"
+            className="group relative aspect-[2/3] flex-shrink-0 overflow-hidden rounded-lg cursor-pointer transform transition-all duration-300 hover:scale-120 hover:z-10"
             style={{
               width: '300px',
               height: '400px',

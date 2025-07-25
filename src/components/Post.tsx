@@ -16,6 +16,7 @@ interface PostProps {
   downvotes?: number;
   views?: number;
   isVerified?: boolean;
+  image?: string; // Add image prop
 }
 
 const MAX_CONTENT_LENGTH = 200;
@@ -31,7 +32,8 @@ const Post: React.FC<PostProps> = ({
   upvotes = 3,
   downvotes = 0,
   views = 477,
-  isVerified = true
+  isVerified = true,
+  image
 }) => {
   const [isUpvoted, setIsUpvoted] = useState(false);
   const [isDownvoted, setIsDownvoted] = useState(false);
@@ -120,7 +122,6 @@ const Post: React.FC<PostProps> = ({
               {isLongContent && !showFullContent && (
                 <>
                   ...{" "}
-                  {/* Color of read more */}
                   <button
                     className="text-red-600 font-semibold hover:underline focus:outline-none"
                     onClick={e => {
@@ -133,6 +134,14 @@ const Post: React.FC<PostProps> = ({
                 </>
               )}
             </p>
+            {/* Only show image if not a long post or if expanded */}
+            {image && (isLongContent || showFullContent) && (
+              <img
+                src={image}
+                alt="Attached"
+                className="mt-3 w-full rounded-2xl object-cover"
+              />
+            )}
           </div>
 
           {/* Action buttons */}

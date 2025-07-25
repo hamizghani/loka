@@ -81,6 +81,7 @@ const initialPosts: PostType[] = [
     That afternoon, sweat dripped down my face as I matched each clap, each stomp, each turn, trying to keep pace. Our voices rose in chorus when the rhythm built, echoing off wooden walls and banana‑leaf ceilings. Watching the older men’s expressions of devotion, I realized Saman is more than a performance—it’s a communal prayer, a reminder that our faith binds us tighter than blood.
     
     Afterwards, we broke bread together: sweet pulut with serikaya, steaming coffee, and laughter. I left with callused palms and a full heart, determined to teach Saman to my younger cousins. In a world where traditions fade, I carry this dance in my skin, so that Acehnese youth remember the power of unity through rhythm.`,
+        image: "/images/image31.png",
         replies: 8,
         retweets: 2,
         upvotes: 210,
@@ -505,6 +506,7 @@ export default function HomePage() {
                   downvotes={post.downvotes}
                   views={post.views}
                   isVerified={post.isVerified} // Pass isVerified
+                  image={post.image} // Pass image prop
                 />
               ))}
             </div>
@@ -577,6 +579,28 @@ export default function HomePage() {
                         avatar="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
                         username="Mike Johnson"
                         handle="mikejdev"
+                    />
+                    <UserSuggestion 
+                        avatar="/images/image1.png"
+                        username="Gung"
+                        handle="gung"
+                        verified={true}
+                    />
+                    <UserSuggestion 
+                        avatar="/images/image5.png"
+                        username="Asep Haryadi"
+                        handle="asepharyadi"
+                    />
+                    <UserSuggestion 
+                        avatar="/images/image3.png"
+                        username="Siti Rahma"
+                        handle="sitirahma"
+                        verified={true}
+                    />
+                    <UserSuggestion 
+                        avatar="/images/image10.png"
+                        username="Siti Kholifah"
+                        handle="sitikholifah"
                     />
                 </div>
             </div>

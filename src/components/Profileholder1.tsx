@@ -18,13 +18,13 @@ export default function UserSuggestion({
     <div className="flex items-center justify-between p-3 hover:bg-gray-50 transition-colors duration-200 rounded-lg">
       {/* Left side - Avatar and user info */}
       <div className="flex items-center space-x-3">
-        <div className="relative">
+        <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center bg-gray-200">
           <Image
             src={avatar}
             alt={`${username}'s avatar`}
             width={40}
             height={40}
-            className="rounded-full object-cover"
+            className="w-full h-full object-cover rounded-full"
           />
         </div>
         

@@ -1,6 +1,6 @@
 // types/index.ts
 export interface PostType {
-    id: number | string;
+    id: number;
     avatar: string;
     username: string;
     handle: string;
@@ -12,4 +12,5 @@ export interface PostType {
     downvotes: number;
     views: number;
     isVerified: boolean; // Added to match Post component
+    image?: string; // Optional image property
   }
