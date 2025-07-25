@@ -5,8 +5,9 @@ import Link from 'next/link';
 import Post from '@/components/Post';
 import UserSuggestion from '@/components/Profileholder1';
 import { useState } from 'react';
+import type { PageProps } from 'next/types'; // Import PageProps from next/types
 
-interface ProfilePageProps {
+interface ProfilePageProps extends PageProps {
   params: {
     username: string;
   };
@@ -102,7 +103,7 @@ const mockUserData: {
         username: "Hamiz Ghani",
         handle: "hamizghaniiii",
         timestamp: "Jul 25",
-        content: 
+        content:
     `I&apos;m Hamiz, a Surabayan now living in Jakarta. Every Idul Fitri, the city may be quieter, but my heart echoes with the sounds of kampung Surabaya—calls to prayer at dawn, the rustle of sarung, and the laughter of cousins preparing ketupat in the kitchen.
 
 As a child, I remember helping my mother pound spices for opor ayam while my father arranged the sajadahs for family prayer. The scent of clove and lemongrass would drift through the house, mixing with the early morning breeze. Even now in Jakarta, I recreate those moments in my small apartment—boiling lontong, blending sambal, and video-calling my parents to make sure everything tastes just like home.
