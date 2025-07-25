@@ -5,9 +5,10 @@ import Link from 'next/link';
 import Post from '@/components/Post';
 import UserSuggestion from '@/components/Profileholder1';
 import { useState } from 'react';
-import type { PageProps } from 'next/types'; // Import PageProps from next/types
+// No need to import PageProps here for a client component's direct params typing
 
-interface ProfilePageProps extends PageProps {
+// Define the shape of the params directly
+interface ProfilePageProps {
   params: {
     username: string;
   };
