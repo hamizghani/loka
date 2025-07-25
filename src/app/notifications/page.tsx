@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import UserSuggestion from "@/components/Profileholder1";
-import { Bell, CheckCircle, AtSign, Settings } from "lucide-react";
+import Image from "next/image";
+import { Bell, Settings } from "lucide-react";
 
 const forYouItems = [
   {
@@ -280,7 +281,7 @@ export default function NotificationsPage() {
               key={notif.id}
               className={`flex items-start gap-4 px-6 py-5 group transition-colors ${notif.highlight ? "bg-yellow-50" : "hover:bg-gray-50"}`}
             >
-              <img
+              <Image
                 src={notif.avatar}
                 alt="avatar"
                 className="w-12 h-12 rounded-full object-cover border border-gray-200 mt-1"
@@ -314,7 +315,7 @@ export default function NotificationsPage() {
                     {/* Black background behind the image */}
                     <div className="absolute inset-0 bg-black z-0"></div>
                     {/* Background Image with reduced opacity */}
-                    <img
+                    <Image
                       src={item.image}
                       alt={item.title}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-110 z-10 opacity-60"

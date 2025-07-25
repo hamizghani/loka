@@ -1,15 +1,11 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
-import { Search, X, Filter, Mic, Camera } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Search, Mic, Camera } from 'lucide-react';
 
 interface SearchBarProps {
   placeholder?: string;
   onSearch?: (query: string) => void;
-}
-
-interface AdvancedSearchBarProps extends SearchBarProps {
-  suggestions?: string[];
 }
 
 const GlassmorphSearchBar: React.FC<SearchBarProps> = ({ onSearch }) => {

@@ -17,7 +17,7 @@ export default function TikTokEmbed({ videoId }: TikTokEmbedProps) {
       document.body.appendChild(script);
     } else {
       // Re-initialize embed if script already present
-      // @ts-ignore
+      // @ts-expect-error
       if (window?.tiktokEmbedLoad) {
         // Do nothing – TikTok automatically detects new embeds
       }
@@ -26,11 +26,20 @@ export default function TikTokEmbed({ videoId }: TikTokEmbedProps) {
 
   return (
     <blockquote
-      className="tiktok-embed w-full"
-      cite={`https://www.tiktok.com/@username/video/${videoId}`}
+      className="tiktok-embed"
+      cite={`https://www.tiktok.com/@tiktok/video/${videoId}`}
       data-video-id={videoId}
+      style={{ maxWidth: '605px', minWidth: '325px' }}
     >
-      <section>Loading TikTok...</section>
+      <section>
+        <a target="_blank" title="" href={`https://www.tiktok.com/@tiktok/video/${videoId}`}>
+          @tiktok
+        </a>
+        <p></p>
+        <a target="_blank" title="♬ original sound" href={`https://www.tiktok.com/music/original-sound-`}>
+          ♬ original sound
+        </a>
+      </section>
     </blockquote>
   );
 }

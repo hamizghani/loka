@@ -1,7 +1,8 @@
 // app/page.tsx
 'use client';
 
-import { useState, useRef, useEffect, FormEvent, KeyboardEvent, CSSProperties, ReactNode } from 'react';
+import { useState, useRef, useEffect, FormEvent, KeyboardEvent} from 'react';
+import Image from 'next/image';
 
 // Tipe data yang cocok dengan API OpenAI
 type Message = {
@@ -71,7 +72,7 @@ interface PostProps {
 
 const SimpleInlinePost: React.FC<PostProps> = ({
     avatar, username, handle, isVerified, timestamp, content,
-    replies, retweets, upvotes, downvotes, views
+    replies, retweets, upvotes, views
 }) => {
     return (
         <div style={{
@@ -87,7 +88,7 @@ const SimpleInlinePost: React.FC<PostProps> = ({
         }}>
             {/* User Info */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <img
+                <Image
                     src={avatar}
                     alt={username}
                     style={{ width: '40px', height: '40px', borderRadius: '9999px', objectFit: 'cover' }} // rounded-full

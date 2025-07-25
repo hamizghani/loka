@@ -4,9 +4,9 @@ import { useState } from 'react';
 import Post from '@/components/Post';
 import GlassmorphSearchBar from '@/components/GlassmorphSearchBar';
 import UserSuggestion from '@/components/Profileholder1';
-import PopularContent from '@/components/PopularComponent';
 import TweetComposer from '@/components/TweetComposer';
 import { PostType } from '@/types/index'; // Import the updated PostType
+import Image from 'next/image';
 
 // Sample data for the "For You" carousel
 const forYouItems = [
@@ -484,7 +484,6 @@ export default function HomePage() {
     );
   };
 
-  const totalSlides = Math.ceil(forYouItems.length / 2);
 
   return (
     <div className="ml-20 flex">
@@ -525,7 +524,7 @@ export default function HomePage() {
                     {/* Black background behind the image */}
                     <div className="absolute inset-0 bg-black z-0"></div>
                     {/* Background Image with reduced opacity */}
-                    <img
+                    <Image
                       src={item.image}
                       alt={item.title}
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-110 z-10 opacity-60"

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { ChevronRight } from 'lucide-react';
+import Image from 'next/image';
 
 export default function CulturalCard({ 
   cardNumber = 1,
@@ -36,13 +37,6 @@ export default function CulturalCard({
 
   // Crop settings for 1728x1080 image, e.g., show center 60% width and 70% height
   // You can adjust objectPosition as needed for your desired crop
-  const cropStyle = {
-    objectFit: 'cover',
-    width: '100%',
-    height: '100%',
-    objectPosition: 'center center',
-    // Optionally, you can use a container with aspect ratio to crop further
-  };
 
   return (
     <div className="w-full h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900">
@@ -62,7 +56,7 @@ export default function CulturalCard({
             {/* Front Side */}
             <div className="absolute inset-0 w-full h-full backface-hidden">
               <div className="relative w-full h-full rounded-2xl overflow-hidden shadow-2xl">
-                <img
+                <Image
                   src="/images/image36.png"
                   alt="Cultural card front"
                   className="w-full h-full object-cover cursor-pointer transition-transform duration-500 hover:scale-105"
@@ -88,7 +82,7 @@ export default function CulturalCard({
 
             {/* Back Side - Show same image as front, cropped */}
             <div className="absolute inset-0 w-full h-full backface-hidden rotate-y-180" style={{ transform: 'rotateY(180deg) scaleX(-1)' }}>
-              <img
+              <Image
                 src="/images/image36.png"
                 alt="Cultural card back"
                 className="absolute inset-0 w-full h-full object-cover rounded-2xl z-0"
