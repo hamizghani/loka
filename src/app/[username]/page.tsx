@@ -1,15 +1,16 @@
+"use client";   // This file is a client component in Next.js
+
 import Image from 'next/image';
 import Link from 'next/link';
 import Post from '@/components/Post';
 import UserSuggestion from '@/components/Profileholder1';
-import { useState } from 'react';
-// No need to import PageProps here for a client component's direct params typing
+import { useState, useEffect } from 'react';
 
-// Define the shape of the params directly
+// Define the shape of the params - now properly typed as Promise
 interface ProfilePageProps {
-  params: {
+  params: Promise<{
     username: string;
-  };
+  }>;
 }
 
 // Star tier types
@@ -121,49 +122,51 @@ Each Lebaran, I&apos;m reminded that tradition isn&apos;t tied to place—it liv
   }
 };
 
-  // Star tier badge renderer
-  const renderStarBadge = (tier: StarTier) => {
-    const tierConfig = {
-      shining: {
-        label: "Shining Star",
-        gradient: "from-yellow-400 via-orange-400 to-red-500",
-        textColor: "text-white",
-        shadow: "shadow-lg"
-      },
-      platinum: {
-        label: "Platinum Star",
-        gradient: "from-gray-300 via-gray-100 to-gray-300",
-        textColor: "text-gray-800",
-        shadow: "shadow-md"
-      },
-      gold: {
-        label: "Gold Star",
-        gradient: "from-yellow-500 via-yellow-400 to-yellow-600",
-        textColor: "text-white",
-        shadow: "shadow-md"
-      },
-      trusted: {
-        label: "Trusted Star",
-        gradient: "from-blue-500 via-blue-400 to-blue-600",
-        textColor: "text-white",
-        shadow: "shadow-sm"
-      }
-    };
-
-    const config = tierConfig[tier];
-    
-    return (
-      <span className={`inline-flex items-center gap-1 px-3 py-1 bg-gradient-to-r ${config.gradient} ${config.textColor} text-sm font-medium rounded-full ${config.shadow}`}>
-        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-        </svg>
-        {config.label}
-      </span>
-    );
+// Star tier badge renderer
+const renderStarBadge = (tier: StarTier) => {
+  const tierConfig = {
+    shining: {
+      label: "Shining Star",
+      gradient: "from-yellow-400 via-orange-400 to-red-500",
+      textColor: "text-white",
+      shadow: "shadow-lg"
+    },
+    platinum: {
+      label: "Platinum Star",
+      gradient: "from-gray-300 via-gray-100 to-gray-300",
+      textColor: "text-gray-800",
+      shadow: "shadow-md"
+    },
+    gold: {
+      label: "Gold Star",
+      gradient: "from-yellow-500 via-yellow-400 to-yellow-600",
+      textColor: "text-white",
+      shadow: "shadow-md"
+    },
+    trusted: {
+      label: "Trusted Star",
+      gradient: "from-blue-500 via-blue-400 to-blue-600",
+      textColor: "text-white",
+      shadow: "shadow-sm"
+    }
   };
 
+  const config = tierConfig[tier];
+  
+  return (
+    <span className={`inline-flex items-center gap-1 px-3 py-1 bg-gradient-to-r ${config.gradient} ${config.textColor} text-sm font-medium rounded-full ${config.shadow}`}>
+      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+      </svg>
+      {config.label}
+    </span>
+  );
+};
+
 export default function ProfilePage({ params }: ProfilePageProps) {
-  const userData = mockUserData[params.username as keyof typeof mockUserData];
+  const [username, setUsername] = useState<string>('');
+  const [userData, setUserData] = useState<typeof mockUserData[string] | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   // For You carousel logic
   const [currentCarouselIndex, setCurrentCarouselIndex] = useState(0);
@@ -205,22 +208,61 @@ export default function ProfilePage({ params }: ProfilePageProps) {
       image: "/images/image26.png"
     },
   ];
+
+  // Resolve the params promise and set user data
+  useEffect(() => {
+    const resolveParams = async () => {
+      try {
+        const resolvedParams = await params;
+        const resolvedUsername = resolvedParams.username;
+        setUsername(resolvedUsername);
+        
+        const user = mockUserData[resolvedUsername as keyof typeof mockUserData];
+        setUserData(user || null);
+      } catch (error) {
+        console.error('Error resolving params:', error);
+        setUserData(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    resolveParams();
+  }, [params]);
+
   const getCurrentCarouselItems = () => {
     const startIndex = currentCarouselIndex * 2;
     return forYouItems.slice(startIndex, startIndex + 2);
   };
+
   const totalSlides = Math.ceil(forYouItems.length / 2);
+  
   const nextCarouselSlide = () => {
     setCurrentCarouselIndex((prev) =>
       prev >= totalSlides - 1 ? 0 : prev + 1
     );
   };
+  
   const prevCarouselSlide = () => {
     setCurrentCarouselIndex((prev) =>
       prev <= 0 ? totalSlides - 1 : prev - 1
     );
   };
   
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="ml-20 flex">
+        <div className="flex-3 bg-white h-screen flex items-center justify-center">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500 mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading profile...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   // If user not found, show 404-like content
   if (!userData) {
     return (
@@ -228,6 +270,7 @@ export default function ProfilePage({ params }: ProfilePageProps) {
         <div className="flex-3 bg-white h-screen flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-800 mb-2">User not found</h1>
+            <p className="text-gray-600">The profile "{username}" does not exist.</p>
           </div>
         </div>
       </div>
@@ -253,7 +296,6 @@ export default function ProfilePage({ params }: ProfilePageProps) {
                 height={128}
                 className="rounded-full border-4 border-white shadow-lg"
               />
-              
             </div>
             {/* User Info - Centered */}
             <div className="mb-4 text-center">
@@ -345,7 +387,6 @@ export default function ProfilePage({ params }: ProfilePageProps) {
         </div>
       </div>
 
-      
       {/* Right Section */}
       <div className="flex-2 flex h-screen flex-col bg-red-200">
         {/* For You section with carousel */}
