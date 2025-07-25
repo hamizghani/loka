@@ -227,7 +227,6 @@ export default function ProfilePage({ params }: ProfilePageProps) {
         <div className="flex-3 bg-white h-screen flex items-center justify-center">
           <div className="text-center">
             <h1 className="text-2xl font-bold text-gray-800 mb-2">User not found</h1>
-            <p className="text-gray-600">The user @{params.username} doesn't exist.</p>
           </div>
         </div>
       </div>
