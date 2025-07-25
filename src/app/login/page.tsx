@@ -8,7 +8,7 @@ const LokaAuth = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false); // New state for actual login status
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // State for actual login status
   
   const [formData, setFormData] = useState({
     email: '',
@@ -35,37 +35,45 @@ const LokaAuth = () => {
   const handleSubmit = async () => {
     setLoading(true);
 
+    // Simulate network delay
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
     try {
-      const endpoint = isLogin ? '/api/auth/login' : '/api/auth/signup';
-      const payload = isLogin 
-        ? { email: formData.email, password: formData.password }
-        : { 
-            email: formData.email, 
-            password: formData.password,
-            fullName: formData.fullName
-          };
+      if (isLogin) {
+        // Static Login Logic
+        if (formData.email === 'hamizghaniiii@gmail.com' && formData.password === '12345678') {
+          console.log('Login successful!');
+          localStorage.setItem('token', 'dummy_static_login_token'); // Store a dummy token
+          setIsLoggedIn(true);
+          // Optional: Clear form data
+          setFormData({
+            email: '',
+            password: '',
+            confirmPassword: '',
+            fullName: ''
+          });
+          // Redirect to the root path
+          window.location.href = '/';
+        } else {
+          console.error('Login failed: Invalid credentials');
+          alert('Invalid email or password. Please try again.');
+        }
+      } else {
+        // Static Signup Logic (no actual validation or storage, just simulates success)
+        if (formData.password !== formData.confirmPassword) {
+          alert('Passwords do not match.');
+          setLoading(false);
+          return;
+        }
+        if (!formData.email || !formData.password || !formData.fullName) {
+          alert('Please fill in all fields.');
+          setLoading(false);
+          return;
+        }
 
-      // API call placeholder - replace with actual implementation
-      const response = await fetch(endpoint, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(payload),
-      });
-
-      const data = await response.json();
-      
-      if (response.ok) {
-        // Handle success - store token and set logged in state
-        console.log('Success:', data);
-        
-        // Store token in localStorage
-        localStorage.setItem('token', data.token);
-        
-        // Set the logged in state to true
+        console.log('Signup simulated successfully!');
+        localStorage.setItem('token', 'dummy_static_signup_token'); // Store a dummy token
         setIsLoggedIn(true);
-        
         // Optional: Clear form data
         setFormData({
           email: '',
@@ -73,21 +81,11 @@ const LokaAuth = () => {
           confirmPassword: '',
           fullName: ''
         });
-        
-        // Optional: Redirect to dashboard
-        // window.location.href = '/dashboard';
-        // or if using Next.js router:
-        // router.push('/dashboard');
-        
-      } else {
-        // Handle error
-        console.error('Error:', data.message);
-        // Optional: Show error message to user
-        alert(data.message || 'Authentication failed');
+        // For signup, we don't redirect immediately, user stays on the logged-in screen
       }
     } catch (error) {
-      console.error('Network error:', error);
-      alert('Network error. Please try again.');
+      console.error('An unexpected error occurred:', error);
+      alert('An unexpected error occurred. Please try again.');
     } finally {
       setLoading(false);
     }

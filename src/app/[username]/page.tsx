@@ -84,11 +84,11 @@ const mockUserData: {
   },
   gung: {
     avatar: "/images/image1.png",
-    username: "Gung",
-    handle: "gung",
-    bio: "Balinese from Gianyar",
-    location: "Gianyar, Indonesia",
-    website: "https://avhdevelopments.vercel.app",
+    username: "Hamiz Ghani",
+    handle: "hamiz ghani",
+    bio: "Your friendly suroboyo guy",
+    location: "Jakarta, Indonesia",
+    website: "morcayne.tech",
     joinDate: "March 2020",
     following: 680,
     followers: 8904,
@@ -98,15 +98,17 @@ const mockUserData: {
       {
         id: 1,
         avatar: "/images/image1.png",
-        username: "Gung",
-        handle: "gung",
+        username: "Hamiz Ghani",
+        handle: "hamizghaniiii",
         timestamp: "Jul 25",
         content: 
-    `I’m Gung, a Balinese from Gianyar. Every Galungan, our village transforms into a sea of gold and white: tall bamboo poles called “penjor” line the streets, each draped with young coconut leaves, rice, and sweet cakes. As a child, I remember weaving my first penjor with my grandmother under the hot midday sun. The rhythmic sway of those poles in the breeze felt like the heartbeat of our faith, reminding us that the ancestors have returned to Earth to bless us.
-    
-    By midday, families gather at the pura (temple) in their finest kebaya and udeng, offering canang sari—small palm‑leaf baskets filled with flowers, fruit, and incense. I carry my own offering, hands trembling as I place it at the shrine. The air fills with the scent of frangipani and cempaka, and the ringing of gamelan sets a meditative tempo. Sharing food and laughter with neighbors afterward binds us together, even as young Balinese drift to cities far away.
-    
-    Galungan’s last day, Kuningan, arrives ten days later. We return to the temple before dawn, carrying fresh offerings to thank the gods and ancestors for their blessings. Standing there in the cool light, I feel both humbled and empowered—connected to generations past and hopeful for Bali’s future. Each year, I vow to keep these traditions alive, to teach my children the meaning behind every ritual, so that Balinese culture remains as vibrant as the penjor that decorate our streets.`,
+    `I’m Hamiz, a Surabayan now living in Jakarta. Every Idul Fitri, the city may be quieter, but my heart echoes with the sounds of kampung Surabaya—calls to prayer at dawn, the rustle of sarung, and the laughter of cousins preparing ketupat in the kitchen.
+
+As a child, I remember helping my mother pound spices for opor ayam while my father arranged the sajadahs for family prayer. The scent of clove and lemongrass would drift through the house, mixing with the early morning breeze. Even now in Jakarta, I recreate those moments in my small apartment—boiling lontong, blending sambal, and video-calling my parents to make sure everything tastes just like home.
+
+After sholat Ied, I visit friends from East Java scattered across the city. We share stories in logat Suroboyoan, swap childhood memories, and laugh over bowls of rawon and tahu tek. For a brief moment, Jakarta feels like Surabaya—familiar, warm, loud in all the right ways.
+
+Each Lebaran, I’m reminded that tradition isn’t tied to place—it lives in us, in the way we speak, the dishes we cook, the prayers we recite. One day, I hope to pass on these pieces of Surabaya to my future children, so even far from kampung halaman, they’ll always carry its spirit within them.`,
         replies: 14,
         retweets: 5,
         upvotes: 320,
