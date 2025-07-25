@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import { Send, MessageCircle } from 'lucide-react';
 
 export default function MessagingInterface() {
-  const [selectedChat, setSelectedChat] = useState(null);
+  const [selectedChat, setSelectedChat] = useState<number | null>(null); // Explicitly type selectedChat
   const [newMessage, setNewMessage] = useState('');
 
   // Indonesian cultural conversation data
@@ -100,11 +100,28 @@ export default function MessagingInterface() {
   const handleSendMessage = () => {
     if (newMessage.trim()) {
       console.log('Sending message:', newMessage);
+      // In a real application, you'd update your conversation state here
+      // For example:
+      // if (selectedConversation) {
+      //   const updatedConversations = conversations.map(conv =>
+      //     conv.id === selectedChat
+      //       ? {
+      //           ...conv,
+      //           messages: [...conv.messages, { id: Date.now(), text: newMessage, sender: 'you', time: 'Just now' }],
+      //           lastMessage: newMessage,
+      //           time: 'Just now'
+      //         }
+      //       : conv
+      //   );
+      //   // You'd need to lift conversations state up or manage it differently
+      //   // if you want to update it from here. For this example, we're just logging.
+      // }
       setNewMessage('');
     }
   };
 
-  const handleKeyPress = (e) => {
+  // Correctly type the event parameter 'e'
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       handleSendMessage();
