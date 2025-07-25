@@ -3,6 +3,7 @@
 
 import React, { useState } from 'react';
 import { MessageCircle, Repeat2, ChevronUp, ChevronDown, BarChart3, Bookmark, Share, MoreHorizontal } from 'lucide-react';
+import Link from 'next/link';
 
 interface PostProps {
   avatar?: string;
@@ -99,7 +100,9 @@ const Post: React.FC<PostProps> = ({
         <div className="flex-1 min-w-0">
           {/* Header */}
           <div className="flex items-center space-x-2 mb-1">
-            <span className="font-bold text-gray-900 hover:underline">{username}</span>
+            <Link href={`/${handle}`} className="font-bold text-gray-900 hover:underline">
+              {username}
+            </Link>
             {isVerified && (
               <div className="w-5 h-5 bg-blue-500 rounded-full flex items-center justify-center">
                 <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">

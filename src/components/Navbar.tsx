@@ -23,7 +23,7 @@ const Navbar = () => {
     llm: '/kalia',
     notifications: '/notifications',
     messages: '/messages',
-    profile: '/profile', // Add path for profile
+    profile: '/gung', // Route profile to /gung
   };
 
   const navItems = [

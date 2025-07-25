@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Post from '@/components/Post';
 import UserSuggestion from '@/components/Profileholder1';
+import { useState } from 'react';
 
 interface ProfilePageProps {
   params: {
@@ -14,56 +15,105 @@ interface ProfilePageProps {
 type StarTier = "shining" | "platinum" | "gold" | "trusted";
 
 // Mock user data
-const mockUserData = {
-  demorghan: {
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
-    username: "demorghan",
-    handle: "podiapo",
-    bio: "Full-stack developer passionate about creating amazing user experiences. Coffee enthusiast ☕ | Tech blogger | Open source contributor",
-    location: "San Francisco, CA",
+type UserPost = {
+  id: number;
+  avatar: string;
+  username: string;
+  handle: string;
+  timestamp: string;
+  content: string;
+  image?: string;
+  replies: number;
+  retweets: number;
+  upvotes: number;
+  downvotes: number;
+  views: number;
+  isVerified: boolean;
+};
+
+const mockUserData: {
+  [key: string]: {
+    avatar: string;
+    username: string;
+    handle: string;
+    bio: string;
+    location: string;
+    website: string;
+    joinDate: string;
+    following: number;
+    followers: number;
+    verified: boolean;
+    starTier: StarTier;
+    posts: UserPost[];
+  }
+} = {
+  hamizghani: {
+    avatar: "/images/image2.png",
+    username: "Hamiz Ghani",
+    handle: "hamizghani",
+    bio: "Coffee enthusiast | Culture blogger | Study Together contributor",
+    location: "Aceh, Indonesia",
     website: "https://demorghan.dev",
     joinDate: "March 2020",
     following: 428,
     followers: 1240,
-    verified: true,
+    verified: false,
     starTier: "shining" as StarTier,
     posts: [
       {
-        id: 1,
-        content: "Just shipped a new feature that reduces load time by 40%! The key was optimizing our database queries and implementing proper caching strategies. #webdev #performance",
-        timestamp: "2h",
-        replies: 23,
-        upvotes: 142,
-        downvotes: 3,
-        views: 2140
-      },
-      {
         id: 2,
-        content: "Hot take: The best code is not the cleverest code, but the code that your teammates can understand and maintain 6 months from now. Readability > Cleverness",
-        timestamp: "5h",
-        replies: 67,
-        upvotes: 234,
-        downvotes: 12,
-        views: 3580
+        avatar: "/images/image2.png",
+        username: "Hamiz Ghani",
+        handle: "hamizghani",
+        timestamp: "Jul 24",
+        content:
+    `I’m Hamiz, an Acehnese from Banda Aceh. Last week I joined a Saman dance workshop to celebrate Maulid Nabi. In a dim village hall, twenty of us sat cross‑legged on the floor, our palms raised in prayer. When the ustadz finished reciting, the leader signaled the beat—and suddenly, synchronized claps echoed like rolling thunder. I’d practiced alone at home, but this was on another level: the dancers responded to each other without a single misstep.
+    
+    That afternoon, sweat dripped down my face as I matched each clap, each stomp, each turn, trying to keep pace. Our voices rose in chorus when the rhythm built, echoing off wooden walls and banana‑leaf ceilings. Watching the older men’s expressions of devotion, I realized Saman is more than a performance—it’s a communal prayer, a reminder that our faith binds us tighter than blood.
+    
+    Afterwards, we broke bread together: sweet pulut with serikaya, steaming coffee, and laughter. I left with callused palms and a full heart, determined to teach Saman to my younger cousins. In a world where traditions fade, I carry this dance in my skin, so that Acehnese youth remember the power of unity through rhythm.`,
+        image: "/images/image31.png",
+        replies: 8,
+        retweets: 2,
+        upvotes: 210,
+        downvotes: 1,
+        views: 2700,
+        isVerified: false,
       },
+    ]
+  },
+  gung: {
+    avatar: "/images/image1.png",
+    username: "Gung",
+    handle: "gung",
+    bio: "Balinese from Gianyar",
+    location: "Gianyar, Indonesia",
+    website: "https://avhdevelopments.vercel.app",
+    joinDate: "March 2020",
+    following: 680,
+    followers: 8904,
+    verified: false,
+    starTier: "trusted" as StarTier,
+    posts: [
       {
-        id: 3,
-        content: "Working on a new React component library. Should I go with TypeScript from the start or migrate later? Looking for experiences from the community 🤔",
-        timestamp: "1d",
-        replies: 45,
-        upvotes: 89,
-        downvotes: 2,
-        views: 1650
+        id: 1,
+        avatar: "/images/image1.png",
+        username: "Gung",
+        handle: "gung",
+        timestamp: "Jul 25",
+        content: 
+    `I’m Gung, a Balinese from Gianyar. Every Galungan, our village transforms into a sea of gold and white: tall bamboo poles called “penjor” line the streets, each draped with young coconut leaves, rice, and sweet cakes. As a child, I remember weaving my first penjor with my grandmother under the hot midday sun. The rhythmic sway of those poles in the breeze felt like the heartbeat of our faith, reminding us that the ancestors have returned to Earth to bless us.
+    
+    By midday, families gather at the pura (temple) in their finest kebaya and udeng, offering canang sari—small palm‑leaf baskets filled with flowers, fruit, and incense. I carry my own offering, hands trembling as I place it at the shrine. The air fills with the scent of frangipani and cempaka, and the ringing of gamelan sets a meditative tempo. Sharing food and laughter with neighbors afterward binds us together, even as young Balinese drift to cities far away.
+    
+    Galungan’s last day, Kuningan, arrives ten days later. We return to the temple before dawn, carrying fresh offerings to thank the gods and ancestors for their blessings. Standing there in the cool light, I feel both humbled and empowered—connected to generations past and hopeful for Bali’s future. Each year, I vow to keep these traditions alive, to teach my children the meaning behind every ritual, so that Balinese culture remains as vibrant as the penjor that decorate our streets.`,
+        replies: 14,
+        retweets: 5,
+        upvotes: 320,
+        downvotes: 4,
+        views: 4800,
+        isVerified: true,
       },
-      {
-        id: 4,
-        content: "Finally published my article on 'Building Scalable APIs with Node.js'. Covers everything from architecture patterns to deployment strategies. Link in bio!",
-        timestamp: "2d",
-        replies: 34,
-        upvotes: 156,
-        downvotes: 5,
-        views: 2890
-      }
     ]
   }
 };
@@ -111,6 +161,62 @@ const mockUserData = {
 
 export default function ProfilePage({ params }: ProfilePageProps) {
   const userData = mockUserData[params.username as keyof typeof mockUserData];
+
+  // For You carousel logic
+  const [currentCarouselIndex, setCurrentCarouselIndex] = useState(0);
+  const forYouItems = [
+    {
+      id: 1,
+      title: "Ethnicity",
+      description: "Explore Indonesia’s rich tapestry of over 1,300 ethnic groups and their unique customs.",
+      image: "/images/image21.png"
+    },
+    {
+      id: 2,
+      title: "Food",
+      description: "Savor the diverse flavors of Indonesian cuisine, from fiery rendang to sweet klepon.",
+      image: "/images/image22.png"
+    },
+    {
+      id: 3,
+      title: "Language",
+      description: "Discover the 700+ regional languages that shape Indonesia’s cultural identity.",
+      image: "/images/image23.png"
+    },
+    {
+      id: 4,
+      title: "Clothing",
+      description: "Admire traditional attire like Batik, Kebaya, and Ulos that reflect local artistry.",
+      image: "/images/image24.png"
+    },
+    {
+      id: 5,
+      title: "Festival",
+      description: "Join vibrant celebrations such as Nyepi, Galungan, and Tabuik that unite communities.",
+      image: "/images/image25.png"
+    },
+    {
+      id: 6,
+      title: "Religion",
+      description: "Navigate Indonesia’s islands and provinces, each boasting distinct landscapes and traditions.",
+      image: "/images/image26.png"
+    },
+  ];
+  const getCurrentCarouselItems = () => {
+    const startIndex = currentCarouselIndex * 2;
+    return forYouItems.slice(startIndex, startIndex + 2);
+  };
+  const totalSlides = Math.ceil(forYouItems.length / 2);
+  const nextCarouselSlide = () => {
+    setCurrentCarouselIndex((prev) =>
+      prev >= totalSlides - 1 ? 0 : prev + 1
+    );
+  };
+  const prevCarouselSlide = () => {
+    setCurrentCarouselIndex((prev) =>
+      prev <= 0 ? totalSlides - 1 : prev - 1
+    );
+  };
   
   // If user not found, show 404-like content
   if (!userData) {
@@ -122,28 +228,6 @@ export default function ProfilePage({ params }: ProfilePageProps) {
             <p className="text-gray-600">The user @{params.username} doesn't exist.</p>
           </div>
         </div>
-        {/* Keep the right sidebar */}
-        <div className="flex-2 bg-blue-200 h-screen flex flex-col">
-          <div className="flex-1 bg-gray-100 p-4 border-b border-gray-300">
-            <h2 className="text-xl font-bold text-gray-800 mb-4">For You</h2>
-          </div>
-          <div className="flex-1 bg-white p-4">
-            <h2 className="text-xl font-bold text-gray-800 mb-4">People to Connect</h2>
-            <div className="space-y-2">
-              <UserSuggestion 
-                avatar="https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=100&h=100&fit=crop&crop=face"
-                username="Sarah Chen"
-                handle="sarahdesigns"
-                verified={true}
-              />
-              <UserSuggestion 
-                avatar="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
-                username="Mike Johnson"
-                handle="mikejdev"
-              />
-            </div>
-          </div>
-        </div>
       </div>
     );
   }
@@ -151,12 +235,11 @@ export default function ProfilePage({ params }: ProfilePageProps) {
   return (
     <div className="ml-20 flex">
       {/* Main Profile Content */}
-      <div className="flex-3 bg-white h-screen overflow-y-auto">
+      <div className="flex-3 bg-white min-h-screen">
         {/* Profile Header */}
         <div className="relative">
           {/* Cover Photo */}
           <div className="h-48 bg-gradient-to-r from-blue-500 to-purple-600"></div>
-          
           {/* Profile Info */}
           <div className="px-6 pb-6">
             {/* Avatar */}
@@ -168,15 +251,8 @@ export default function ProfilePage({ params }: ProfilePageProps) {
                 height={128}
                 className="rounded-full border-4 border-white shadow-lg"
               />
-              {userData.verified && (
-                <div className="absolute bottom-2 right-2 bg-blue-500 rounded-full p-1">
-                  <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
-                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                  </svg>
-                </div>
-              )}
+              
             </div>
-
             {/* User Info - Centered */}
             <div className="mb-4 text-center">
               <h1 className="text-2xl font-bold text-gray-900 flex items-center justify-center gap-2">
@@ -188,18 +264,18 @@ export default function ProfilePage({ params }: ProfilePageProps) {
                 )}
               </h1>
               <p className="text-gray-600">@{userData.handle}</p>
-              
-              {/* Star Tier Label */}
+              {/* Star Tier Label and View Culture Card Button */}
               {userData.starTier && (
-                <div className="mt-2 flex justify-center">
+                <div className="mt-2 flex justify-center items-center gap-3">
                   {renderStarBadge(userData.starTier)}
+                  <a href="/card" className="inline-block px-4 py-1.5 rounded-full bg-red-600 text-white font-semibold text-sm shadow hover:bg-red-700 transition ml-2">
+                    View Culture Card
+                  </a>
                 </div>
               )}
             </div>
-
             {/* Bio - Centered */}
             <p className="text-gray-800 mb-4 leading-relaxed text-center max-w-2xl mx-auto">{userData.bio}</p>
-
             {/* Meta Info - Centered */}
             <div className="flex flex-wrap justify-center gap-4 text-sm text-gray-600 mb-4">
               {userData.location && (
@@ -228,7 +304,6 @@ export default function ProfilePage({ params }: ProfilePageProps) {
                 Joined {userData.joinDate}
               </div>
             </div>
-
             {/* Follow Stats - Centered */}
             <div className="flex justify-center gap-6 text-sm">
               <div>
@@ -242,58 +317,113 @@ export default function ProfilePage({ params }: ProfilePageProps) {
             </div>
           </div>
         </div>
-
         {/* Posts Section */}
         <div className="border-t border-gray-200">
           <div className="px-6 py-4">
             <h2 className="text-lg font-semibold text-gray-900">Posts</h2>
           </div>
-          
           {/* User Posts */}
-          {userData.posts.map((post) => (
-            <Post
-              key={post.id}
-              avatar={userData.avatar}
-              username={userData.username}
-              handle={userData.handle}
-              timestamp={post.timestamp}
-              content={post.content}
-              replies={post.replies}
-              upvotes={post.upvotes}
-              downvotes={post.downvotes}
-              views={post.views}
-            />
-          ))}
+          <div className="flex flex-col">
+            {userData.posts.map((post) => (
+              <Post
+                key={post.id}
+                avatar={userData.avatar}
+                username={userData.username}
+                handle={userData.handle}
+                timestamp={post.timestamp}
+                content={post.content}
+                replies={post.replies}
+                upvotes={post.upvotes}
+                downvotes={post.downvotes}
+                views={post.views}
+                image={post.image}
+              />
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* Right Sidebar - Same as homepage */}
-      <div className="flex-2 bg-blue-200 h-screen flex flex-col">
-        {/* Top half - For You section */}
-        <div className="flex-1 bg-gray-100 p-4 border-b border-gray-300">
-          <h2 className="text-xl font-bold text-gray-800 mb-4">For You</h2>
+      
+      {/* Right Section */}
+      <div className="flex-2 flex h-screen flex-col bg-red-200">
+        {/* For You section with carousel */}
+        <div className="flex-1 border-b border-gray-300 bg-gray-100 flex flex-col">
+          <h2 className="p-4 pb-2 text-xl font-bold text-gray-800">For You</h2>
+          <div className="relative flex-1">
+            <div className="h-full overflow-hidden">
+              <div className="flex h-full gap-2 p-2">
+                {getCurrentCarouselItems().map((item) => (
+                  <div key={item.id} className="flex-1 rounded-lg overflow-hidden relative group cursor-pointer aspect-[4/3]">
+                    {/* Black background behind the image */}
+                    <div className="absolute inset-0 bg-black z-0"></div>
+                    {/* Background Image with reduced opacity */}
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-110 z-10 opacity-60"
+                    />
+                    {/* Text Overlay */}
+                    <div className="absolute inset-0 z-20 p-4 flex flex-col justify-end">
+                      <h3 className="font-bold text-lg text-white mb-2 drop-shadow-lg">{item.title}</h3>
+                      <p className="text-sm text-white text-opacity-90 drop-shadow-md">{item.description}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            {/* Modern Navigation Buttons */}
+            <button
+              onClick={prevCarouselSlide}
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-40 hover:bg-opacity-60 text-red-600 rounded-full w-10 h-10 flex items-center justify-center shadow transition-all duration-200 z-30"
+              aria-label="Previous"
+            >
+              {/* Left Arrow Icon */}
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={nextCarouselSlide}
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-40 hover:bg-opacity-60 text-red-600 rounded-full w-10 h-10 flex items-center justify-center shadow transition-all duration-200 z-30"
+              aria-label="Next"
+            >
+              {/* Right Arrow Icon */}
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
         </div>
-        
-        {/* Bottom half - People to Connect section */}
         <div className="flex-1 bg-white p-4">
-          <h2 className="text-xl font-bold text-gray-800 mb-4">People to Connect</h2>
+          <h2 className="mb-4 text-xl font-bold text-gray-800">People to Connect</h2>
           <div className="space-y-2">
-            <UserSuggestion 
-              avatar="https://images.unsplash.com/photo-1494790108755-2616b612b47c?w=100&h=100&fit=crop&crop=face"
+            <UserSuggestion
+              avatar="/images/image27.png"
               username="Sarah Chen"
               handle="sarahdesigns"
               verified={true}
             />
-            <UserSuggestion 
-              avatar="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
-              username="Mike Johnson"
-              handle="mikejdev"
-            />
-            <UserSuggestion 
-              avatar="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=100&h=100&fit=crop&crop=face"
-              username="Alex Rivera"
-              handle="alexcodes"
+            <UserSuggestion
+              avatar="/images/image1.png"
+              username="Gung"
+              handle="gung"
               verified={true}
+            />
+            <UserSuggestion
+              avatar="/images/image5.png"
+              username="Asep Haryadi"
+              handle="asepharyadi"
+            />
+            <UserSuggestion
+              avatar="/images/image3.png"
+              username="Siti Rahma"
+              handle="sitirahma"
+              verified={true}
+            />
+            <UserSuggestion
+              avatar="/images/image2.png"
+              username="Hamiz Ghani"
+              handle="hamizghani"
             />
           </div>
         </div>

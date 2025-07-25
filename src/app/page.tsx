@@ -57,7 +57,7 @@ const initialPosts: PostType[] = [
         handle: "gung",
         timestamp: "Jul 25",
         content: 
-    `I’m Gung, a Balinese from Ubud. Every Galungan, our village transforms into a sea of gold and white: tall bamboo poles called “penjor” line the streets, each draped with young coconut leaves, rice, and sweet cakes. As a child, I remember weaving my first penjor with my grandmother under the hot midday sun. The rhythmic sway of those poles in the breeze felt like the heartbeat of our faith, reminding us that the ancestors have returned to Earth to bless us.
+    `I’m Gung, a Balinese from Gianyar. Every Galungan, our village transforms into a sea of gold and white: tall bamboo poles called “penjor” line the streets, each draped with young coconut leaves, rice, and sweet cakes. As a child, I remember weaving my first penjor with my grandmother under the hot midday sun. The rhythmic sway of those poles in the breeze felt like the heartbeat of our faith, reminding us that the ancestors have returned to Earth to bless us.
     
     By midday, families gather at the pura (temple) in their finest kebaya and udeng, offering canang sari—small palm‑leaf baskets filled with flowers, fruit, and incense. I carry my own offering, hands trembling as I place it at the shrine. The air fills with the scent of frangipani and cempaka, and the ringing of gamelan sets a meditative tempo. Sharing food and laughter with neighbors afterward binds us together, even as young Balinese drift to cities far away.
     
@@ -139,6 +139,7 @@ const initialPosts: PostType[] = [
     Last weekend, I led an angklung workshop for city kids. They arrived skeptical, unsure how bamboo tubes could become an orchestra. But as we practiced pelog scales, the room filled with laughter and surprise. Parents watched from doorways, eyes shining with pride at their children’s discovery of a centuries‑old art.
     
     After the session, we shared karedok and tea beneath the palms. I saw how music can bridge generations and backgrounds, bringing people together in harmony. I’ll continue hosting these workshops, hoping that Sundanese heritage echoes beyond Bandung into the hearts of urban youth.`,
+        image: "/images/image32.png",
         replies: 6,
         retweets: 2,
         upvotes: 230,
@@ -329,6 +330,7 @@ const initialPosts: PostType[] = [
 Last Kasada, I joined the night climb with my father. The cold wind bit our faces as we reached the rim. By torchlight, I dropped a basket of jasmine petals into the glowing abyss, whispering prayers for our ancestors.
 
 As dawn broke, we danced in traditional Tenggerese attire—bright shawls and silver ornaments sparkling in sunlight. The ceremony reminded me that even amid modern Java, sacred mountains hold our stories.`,
+        image: "/images/image34.png",
         replies: 4,
         retweets: 1,
         upvotes: 160,
@@ -512,99 +514,88 @@ export default function HomePage() {
             </div>
         </div>
         <div className="flex-2 flex h-screen flex-col bg-red-200">
-            {/* For You section with carousel */}
-            <div className="flex-1 border-b border-gray-300 bg-gray-100 flex flex-col">
-                <h2 className="p-4 pb-2 text-xl font-bold text-gray-800">For You</h2>
-                
-                {/* Carousel Container - Full Height */}
-                <div className="relative flex-1">
-                    {/* Carousel Items Container - Full Height */}
-                    <div className="h-full overflow-hidden">
-                        <div className="flex h-full gap-2 p-2">
-                            {getCurrentCarouselItems().map((item) => (
-                                <div key={item.id} className="flex-1 rounded-lg overflow-hidden relative group cursor-pointer aspect-[4/3]">
-                                    {/* Black background behind the image */}
-                                    <div className="absolute inset-0 bg-black z-0"></div>
-                                    {/* Background Image with reduced opacity */}
-                                    <img 
-                                        src={item.image} 
-                                        alt={item.title}
-                                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-110 z-10 opacity-60"
-                                    />
-                                    {/* (Optional) Remove the white overlay */}
-                                    {/* Text Overlay */}
-                                    <div className="absolute inset-0 z-20 p-4 flex flex-col justify-end">
-                                        <h3 className="font-bold text-lg text-white mb-2 drop-shadow-lg">{item.title}</h3>
-                                        <p className="text-sm text-white text-opacity-90 drop-shadow-md">{item.description}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+        {/* For You section with carousel */}
+        <div className="flex-1 border-b border-gray-300 bg-gray-100 flex flex-col">
+          <h2 className="p-4 pb-2 text-xl font-bold text-gray-800">For You</h2>
+          <div className="relative flex-1">
+            <div className="h-full overflow-hidden">
+              <div className="flex h-full gap-2 p-2">
+                {getCurrentCarouselItems().map((item) => (
+                  <div key={item.id} className="flex-1 rounded-lg overflow-hidden relative group cursor-pointer aspect-[4/3]">
+                    {/* Black background behind the image */}
+                    <div className="absolute inset-0 bg-black z-0"></div>
+                    {/* Background Image with reduced opacity */}
+                    <img
+                      src={item.image}
+                      alt={item.title}
+                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-110 z-10 opacity-60"
+                    />
+                    {/* Text Overlay */}
+                    <div className="absolute inset-0 z-20 p-4 flex flex-col justify-end">
+                      <h3 className="font-bold text-lg text-white mb-2 drop-shadow-lg">{item.title}</h3>
+                      <p className="text-sm text-white text-opacity-90 drop-shadow-md">{item.description}</p>
                     </div>
-
-                    {/* Modern Navigation Buttons */}
-                    <button 
-                        onClick={prevCarouselSlide}
-                        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-40 hover:bg-opacity-60 text-red-600 rounded-full w-10 h-10 flex items-center justify-center shadow transition-all duration-200 z-30"
-                        aria-label="Previous"
-                    >
-                        {/* Left Arrow Icon */}
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-                        </svg>
-                    </button>
-                    <button 
-                        onClick={nextCarouselSlide}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-40 hover:bg-opacity-60 text-red-600 rounded-full w-10 h-10 flex items-center justify-center shadow transition-all duration-200 z-30"
-                        aria-label="Next"
-                    >
-                        {/* Right Arrow Icon */}
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </button>
-                </div>
+                  </div>
+                ))}
+              </div>
             </div>
-            
-            <div className="flex-1 bg-white p-4">
-                <h2 className="mb-4 text-xl font-bold text-gray-800">People to Connect</h2>
-                <div className="space-y-2">
-                    <UserSuggestion 
-                        avatar="/images/image27.png"
-                        username="Sarah Chen"
-                        handle="sarahdesigns"
-                        verified={true}
-                    />
-                    <UserSuggestion 
-                        avatar="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face"
-                        username="Mike Johnson"
-                        handle="mikejdev"
-                    />
-                    <UserSuggestion 
-                        avatar="/images/image1.png"
-                        username="Gung"
-                        handle="gung"
-                        verified={true}
-                    />
-                    <UserSuggestion 
-                        avatar="/images/image5.png"
-                        username="Asep Haryadi"
-                        handle="asepharyadi"
-                    />
-                    <UserSuggestion 
-                        avatar="/images/image3.png"
-                        username="Siti Rahma"
-                        handle="sitirahma"
-                        verified={true}
-                    />
-                    <UserSuggestion 
-                        avatar="/images/image10.png"
-                        username="Siti Kholifah"
-                        handle="sitikholifah"
-                    />
-                </div>
-            </div>
+            {/* Modern Navigation Buttons */}
+            <button
+              onClick={prevCarouselSlide}
+              className="absolute left-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-40 hover:bg-opacity-60 text-red-600 rounded-full w-10 h-10 flex items-center justify-center shadow transition-all duration-200 z-30"
+              aria-label="Previous"
+            >
+              {/* Left Arrow Icon */}
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+              </svg>
+            </button>
+            <button
+              onClick={nextCarouselSlide}
+              className="absolute right-4 top-1/2 -translate-y-1/2 bg-white bg-opacity-40 hover:bg-opacity-60 text-red-600 rounded-full w-10 h-10 flex items-center justify-center shadow transition-all duration-200 z-30"
+              aria-label="Next"
+            >
+              {/* Right Arrow Icon */}
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          </div>
         </div>
+        <div className="flex-1 bg-white p-4">
+          <h2 className="mb-4 text-xl font-bold text-gray-800">People to Connect</h2>
+          <div className="space-y-2">
+            <UserSuggestion
+              avatar="/images/image27.png"
+              username="Sarah Chen"
+              handle="sarahdesigns"
+              verified={true}
+            />
+            <UserSuggestion
+              avatar="/images/image1.png"
+              username="Gung"
+              handle="gung"
+              verified={true}
+            />
+            <UserSuggestion
+              avatar="/images/image5.png"
+              username="Asep Haryadi"
+              handle="asepharyadi"
+            />
+            <UserSuggestion
+              avatar="/images/image3.png"
+              username="Siti Rahma"
+              handle="sitirahma"
+              verified={true}
+            />
+            <UserSuggestion
+              avatar="/images/image2.png"
+              username="Hamiz Ghani"
+              handle="hamizghani"
+            />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
