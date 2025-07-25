@@ -2,7 +2,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
-import { AuthProvider } from "./context/AuthContext"; // 👈 import AuthProvider
 
 export const metadata: Metadata = {
   title: "Loka",
@@ -19,10 +18,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-white">
-        <AuthProvider> {/* 👈 wrap children and Navbar */}
           {children}
           <Navbar />
-        </AuthProvider>
       </body>
     </html>
   );

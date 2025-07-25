@@ -5,6 +5,7 @@ import PopularComponent from "@/components/PopularComponent";
 import UserSuggestion from "@/components/Profileholder1";
 import Post from "@/components/Post";
 import React, { useState, useEffect, useRef } from "react"; // Import useRef
+import TikTokEmbed from "@/components/TiktokEmbed";
 
 const featuredStories = [
   {
@@ -369,40 +370,7 @@ export default function ExplorePage() {
               )}
 
               {/* TikTok Embeds Section */}
-              <div className="mt-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">Related Videos</h3>
-                <div className="relative">
-                  <div id="tiktok-carousel" ref={tiktokCarouselRef} className="flex overflow-x-auto scroll-smooth space-x-4 p-2 pb-4">
-                    {tiktokEmbeds.map((embedHtml, index) => (
-                      <div 
-                        key={index} 
-                        className="flex-shrink-0 w-[380px] h-auto rounded-lg overflow-hidden" // Set fixed width for proportion
-                        dangerouslySetInnerHTML={{ __html: embedHtml }} 
-                      />
-                    ))}
-                  </div>
-                  {/* Left Chevron */}
-                  <button
-                    onClick={scrollLeft}
-                    className="absolute left-0 top-1/2 -translate-y-1/2 bg-white bg-opacity-70 hover:bg-opacity-90 text-gray-800 rounded-full w-10 h-10 flex items-center justify-center shadow-md transition-all duration-200 z-10"
-                    aria-label="Scroll left"
-                  >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
-                    </svg>
-                  </button>
-                  {/* Right Chevron */}
-                  <button
-                    onClick={scrollRight}
-                    className="absolute right-0 top-1/2 -translate-y-1/2 bg-white bg-opacity-70 hover:bg-opacity-90 text-gray-800 rounded-full w-10 h-10 flex items-center justify-center shadow-md transition-all duration-200 z-10"
-                    aria-label="Scroll right"
-                  >
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                </div>
-              </div>
+              
             </div>
           ) : (
             // Default Featured Stories View
@@ -433,12 +401,11 @@ export default function ExplorePage() {
                   </div>
                 </div>
               ))}
-              <blockquote cite="https://www.tiktok.com/@majuidn/video/7440841336162503991" data-video-id="7440841336162503991" className="w-full" > <section> <a target="_blank" title="@majuidn" href="https://www.tiktok.com/@majuidn?refer=embed">@majuidn</a> Ritual Ma’nene merupakan salah satu tradisi yang dilakukan suku Toraja di Sulawesi Selatan (Sulsel). Tradisi ini berupa membersihkan jenazah yang telah meninggal puluhan bahkan ratusan tahun atau yang telah berbentuk mumi. Ritual Ma’nene masih dijaga oleh masyarakat suku Toraja. Pada tradisi ini, satu rumpun keluarga melakukan pembersihan mumi leluhur sebagai garis keturunannya. Pemangku adat suku Toraja, Marten Paladan mengatakan, ritual Ma’nene adalah salah satu cara masyarakat Toraja untuk menghormati leluhur yang sudah lebih dulu meninggal dunia. Menurutnya, suku Toraja memang sangat menjaga dan menghormati leluhur. ____________ <a title="majuindonesia" target="_blank" href="https://www.tiktok.com/tag/majuindonesia?refer=embed">#MajuIndonesia</a> <a title="majuidn" target="_blank" href="https://www.tiktok.com/tag/majuidn?refer=embed">#MajuIDN</a> <a title="indonesia" target="_blank" href="https://www.tiktok.com/tag/indonesia?refer=embed">#Indonesia</a> <a title="manene" target="_blank" href="https://www.tiktok.com/tag/manene?refer=embed">#Manene</a> <a title="toraja" target="_blank" href="https://www.tiktok.com/tag/toraja?refer=embed">#Toraja</a> <a title="budaya" target="_blank" href="https://www.tiktok.com/tag/budaya?refer=embed">#Budaya</a> <a target="_blank" title="♬ original sound  - Maju Indonesia" href="https://www.tiktok.com/music/original-sound-Maju-Indonesia-7440841423753399096?refer=embed">♬ original sound  - Maju Indonesia</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script>
-
-              <blockquote cite="https://www.tiktok.com/@koteka.1998/video/7466225678384467205" data-video-id="7466225678384467205" className="w-full" > <section> <a target="_blank" title="@koteka.1998" href="https://www.tiktok.com/@koteka.1998?refer=embed">@koteka.1998</a> <p>Toraja tribe culture in Indonesia 👍👍✔️</p> <a target="_blank" title="♬ suara asli  - ⚙️⚙️Gantinya⚙️⚙️" href="https://www.tiktok.com/music/suara-asli-⚙️⚙️Gantinya⚙️⚙️-7466225685662272262?refer=embed">♬ suara asli  - ⚙️⚙️Gantinya⚙️⚙️</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script>
-
-              <blockquote cite="https://www.tiktok.com/@serliana817/video/7193908102444485914" data-video-id="7193908102444485914" className="w-full"> <section> <a target="_blank" title="@serliana817" href="https://www.tiktok.com/@serliana817?refer=embed">@serliana817</a> Ma&#39; Nene&#39; merupakan sebuah ritual adat dalam budaya Suku Toraja. Ritual ini merupakan sebuah ritual di mana mayat yang berusia puluhan bahkan ratusan tahun yang lalu dikeluarkan dari dalam liang kuburan untuk dibersihkan dan diganti baju dan kainnya. Ritual adat ini termasuk dalam upacara adat Rambu Solo&#39; (kematian).<a title="tiktoktoraja" target="_blank" href="https://www.tiktok.com/tag/tiktoktoraja?refer=embed">#tiktoktoraja</a><a title="torajaviral" target="_blank" href="https://www.tiktok.com/tag/torajaviral?refer=embed">#torajaviral</a><a title="anakkampung" target="_blank" href="https://www.tiktok.com/tag/anakkampung?refer=embed">#anakkampung</a><a title="sulawesiselatan" target="_blank" href="https://www.tiktok.com/tag/sulawesiselatan?refer=embed">#sulawesiselatan</a><a title="fypシ゚viral" target="_blank" href="https://www.tiktok.com/tag/fyp%E3%82%B7%E3%82%9Aviral?refer=embed">#fypシ゚viral</a> <a target="_blank" title="♬ original sound - Novi - emabel" href="https://www.tiktok.com/music/original-sound-Novi-6932689984105286402?refer=embed">♬ original sound - Novi - emabel</a> </section> </blockquote> <script async src="https://www.tiktok.com/embed.js"></script>
-
+              <div className="space-y-8">
+                <TikTokEmbed videoId="7440841336162503991" />
+                <TikTokEmbed videoId="7466225678384467205" />
+                <TikTokEmbed videoId="7193908102444485914" />
+              </div>
 
             </>
             
