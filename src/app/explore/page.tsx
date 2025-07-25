@@ -11,6 +11,7 @@ const featuredStories = [
     title: "The Spirit of Saman",
     author: "Hamiz Ghani",
     image: "/images/image31.png",
+    tag: "Ethnicity",
     description:
       "Experience the unity and devotion of Aceh's Saman dance, where rhythm and faith bind a community together.",
   },
@@ -19,16 +20,27 @@ const featuredStories = [
     title: "Galungan: Bali's Living Tradition",
     author: "Gung",
     image: "/images/image33.png",
+    tag: "Festivals",
     description:
       "Discover how the Balinese celebrate Galungan, honoring ancestors and keeping traditions alive through generations.",
   },
   {
     id: 3,
-    title: "The Taste of Sundanese Harmony",
-    author: "Asep Haryadi",
-    image: "/images/image32.png",
+    title: "The Taste of Sundanese Food",
+    author: "Dewi Kusuma",
+    image: "/images/image35.png",
+    tag: "Food",
     description:
-      "Join a Sundanese angklung workshop and see how music bridges generations and backgrounds in Bandung.",
+      "Dive deep into traditional Sunda Food and see how dishes bridges generations and backgrounds in Bandung.",
+  },
+  {
+    id: 4,
+    title: "The Tenggerese Peace Offerings",
+    author: "Asep Haryadi",
+    image: "/images/image34.png",
+    tag: "Religion",
+    description:
+      "Explore how the Tenggerese people prepare offerings to the gods, a tradition that has been passed down for centuries.",
   },
 ];
 
@@ -109,9 +121,11 @@ export default function ExplorePage() {
               </div>
               <div className="flex flex-col justify-between flex-1">
                 <div>
-                  <span className="inline-block bg-red-100 text-red-600 text-xs font-semibold px-2 py-1 rounded mb-2">
-                    Featured
-                  </span>
+                  {story.tag && (
+                    <span className="inline-block bg-red-100 text-red-600 text-xs font-semibold px-2 py-1 rounded mb-2">
+                      {story.tag}
+                    </span>
+                  )}
                   <h2 className="text-lg font-bold text-gray-900 mb-1">{story.title}</h2>
                   <p className="text-gray-700 text-sm mb-2">{story.description}</p>
                 </div>
