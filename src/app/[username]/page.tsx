@@ -1,4 +1,4 @@
-"use client";   // This file is a client component in Next.js
+"use client";   // This file should be at: src/app/profile/[username]/page.tsx
 
 import Image from 'next/image';
 import Link from 'next/link';
@@ -6,7 +6,7 @@ import Post from '@/components/Post';
 import UserSuggestion from '@/components/Profileholder1';
 import { useState, useEffect } from 'react';
 
-// Define the shape of the params - now properly typed as Promise
+// Define the shape of the params for dynamic route [username]
 interface ProfilePageProps {
   params: Promise<{
     username: string;
