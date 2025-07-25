@@ -1,11 +1,25 @@
 "use client";
 
 import GlassmorphSearchBar from "@/components/GlassmorphSearchBar";
-import PopularComponent from "@/components/PopularComponent";
 import UserSuggestion from "@/components/Profileholder1";
 import Post from "@/components/Post";
-import React, { useState, useEffect, useRef } from "react"; // Import useRef
+import React, { useState, useEffect } from "react";
 import TikTokEmbed from "@/components/TiktokEmbed";
+import Image from "next/image";
+
+interface PostData {
+  avatar: string;
+  username: string;
+  handle: string;
+  verified: boolean;
+  timestamp: string;
+  content: string;
+  replies: number;
+  retweets: number;
+  upvotes: number;
+  downvotes: number;
+  views: number;
+}
 
 const featuredStories = [
   {
@@ -118,23 +132,6 @@ const mockUsers = [
   },
 ];
 
-const generateMockPosts = (query: string) => {
-  const keywords = query.split(" ");
-  const contextTag = keywords[0] || "Culture";
-
-  return mockUsers.map((user, index) => ({
-    ...user,
-    timestamp: "Jul 25",
-    content: `Talking about ${contextTag.toLowerCase()} really brings back memories. Here's my take on it.`,
-    replies: Math.floor(Math.random() * 5),
-    retweets: Math.floor(Math.random() * 3),
-    upvotes: Math.floor(Math.random() * 10),
-    downvotes: 0,
-    views: 100 + index * 50,
-  }));
-};
-
-
 // Simple GPT API integration function - enhancement happens in API route
 const callGPTAPI = async (userQuery: string, mode: string = "explore"): Promise<string> => {
   try {
@@ -176,37 +173,7 @@ export default function ExplorePage() {
   const [searchResult, setSearchResult] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-  const [mockPosts, setMockPosts] = useState<any[]>([]); // state for GPT-powered posts
-
-  // Ref for the TikTok carousel container
-  const tiktokCarouselRef = useRef<HTMLDivElement>(null);
-
-  // TikTok embed HTML strings
-  const tiktokEmbeds = [
-    `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@majuidn/video/7440841336162503991" data-video-id="7440841336162503991" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@majuidn" href="https://www.tiktok.com/@majuidn?refer=embed">@majuidn</a> Ritual Ma’nene merupakan salah satu tradisi yang dilakukan suku Toraja di Sulawesi Selatan (Sulsel). Tradisi ini berupa membersihkan jenazah yang telah meninggal puluhan bahkan ratusan tahun atau yang telah berbentuk mumi. Ritual Ma’nene masih dijaga oleh masyarakat suku Toraja. Pada tradisi ini, satu rumpun keluarga melakukan pembersihan mumi leluhur sebagai garis keturunannya. Pemangku adat suku Toraja, Marten Paladan mengatakan, ritual Ma’nene adalah salah satu cara masyarakat Toraja untuk menghormati leluhur yang sudah lebih dulu meninggal dunia. Menurutnya, suku Toraja memang sangat menjaga dan menghormati leluhur. ____________ <a title="majuindonesia" target="_blank" href="https://www.tiktok.com/tag/majuindonesia?refer=embed">#MajuIndonesia</a> <a title="majuidn" target="_blank" href="https://www.tiktok.com/tag/majuidn?refer=embed">#MajuIDN</a> <a title="indonesia" target="_blank" href="https://www.tiktok.com/tag/indonesia?refer=embed">#Indonesia</a> <a title="manene" target="_blank" href="https://www.tiktok.com/tag/manene?refer=embed">#Manene</a> <a title="toraja" target="_blank" href="https://www.tiktok.com/tag/toraja?refer=embed">#Toraja</a> <a title="budaya" target="_blank" href="https://www.tiktok.com/tag/budaya?refer=embed">#Budaya</a> <a target="_blank" title="♬ original sound  - Maju Indonesia" href="https://www.tiktok.com/music/original-sound-Maju-Indonesia-7440841423753399096?refer=embed">♬ original sound  - Maju Indonesia</a> </section> </blockquote>`,
-    `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@koteka.1998/video/7466225678384467205" data-video-id="7466225678384467205" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@koteka.1998" href="https://www.tiktok.com/@koteka.1998?refer=embed">@koteka.1998</a> <p>Toraja tribe culture in Indonesia 👍👍✔️</p> <a target="_blank" title="♬ suara asli  - ⚙️⚙️Gantinya⚙️⚙️" href="https://www.tiktok.com/music/suara-asli-⚙️⚙️Gantinya⚙️⚙️-7466225685662272262?refer=embed">♬ suara asli  - ⚙️⚙️Gantinya⚙️⚙️</a> </section> </blockquote>`,
-    `<blockquote class="tiktok-embed" cite="https://www.tiktok.com/@serliana817/video/7193908102444485914" data-video-id="7193908102444485914" style="max-width: 605px;min-width: 325px;" > <section> <a target="_blank" title="@serliana817" href="https://www.tiktok.com/@serliana817?refer=embed">@serliana817</a> Ma&#39; Nene&#39; merupakan sebuah ritual adat dalam budaya Suku Toraja. Ritual ini merupakan sebuah ritual di mana mayat yang berusia puluhan bahkan ratusan tahun yang lalu dikeluarkan dari dalam liang kuburan untuk dibersihkan dan diganti baju dan kainnya. Ritual adat ini termasuk dalam upacara adat Rambu Solo&#39; (kematian).<a title="tiktoktoraja" target="_blank" href="https://www.tiktok.com/tag/tiktoktoraja?refer=embed">#tiktoktoraja</a><a title="torajaviral" target="_blank" href="https://www.tiktok.com/tag/torajaviral?refer=embed">#torajaviral</a><a title="anakkampung" target="_blank" href="https://www.tiktok.com/tag/anakkampung?refer=embed">#anakkampung</a><a title="sulawesiselatan" target="_blank" href="https://www.tiktok.com/tag/sulawesiselatan?refer=embed">#sulawesiselatan</a><a title="fypシ゚viral" target="_blank" href="https://www.tiktok.com/tag/fyp%E3%82%B7%E3%82%9Aviral?refer=embed">#fyp%E3%82%B7%E3%82%9Aviral</a> <a target="_blank" title="♬ original sound - Novi - emabel" href="https://www.tiktok.com/music/original-sound-Novi-6932689984105286402?refer=embed">♬ original sound - Novi - emabel</a> </section> </blockquote>`
-  ];
-
-  // Function to scroll the TikTok carousel left
-  const scrollLeft = () => {
-    if (tiktokCarouselRef.current) {
-      tiktokCarouselRef.current.scrollBy({
-        left: -400, // Scroll amount
-        behavior: 'smooth'
-      });
-    }
-  };
-
-  // Function to scroll the TikTok carousel right
-  const scrollRight = () => {
-    if (tiktokCarouselRef.current) {
-      tiktokCarouselRef.current.scrollBy({
-        left: 400, // Scroll amount
-        behavior: 'smooth'
-      });
-    }
-  };
+  const [mockPosts, setMockPosts] = useState<PostData[]>([]);
 
   // Effect to load the TikTok embed script once
   useEffect(() => {
@@ -219,7 +186,6 @@ export default function ExplorePage() {
       document.body.appendChild(script);
     }
   }, []); // Run once on component mount
-
 
   const getCurrentCarouselItems = () => {
     const startIndex = currentCarouselIndex * 2;
@@ -253,7 +219,7 @@ export default function ExplorePage() {
 
       // Call GPT API 5x to simulate community posts
       const postPromises = mockUsers.map((user) =>
-        callGPTAPI(query, "post").then((content) => ({
+        callGPTAPI(query, "post").then((content): PostData => ({
           ...user,
           content,
           timestamp: "Jul 25",
@@ -276,7 +242,6 @@ export default function ExplorePage() {
       setIsLoading(false);
     }
   };
-
 
   const handleBackToExplore = () => {
     setIsSearchMode(false);
@@ -309,7 +274,7 @@ export default function ExplorePage() {
               {/* Search Query Display */}
               <div className="bg-gray-50 rounded-lg p-3 border-l-4 border-red-500">
                 <p className="text-sm text-gray-600">Search results for:</p>
-                <p className="font-semibold text-gray-900">"{searchQuery}"</p>
+                <p className="font-semibold text-gray-900">&quot;{searchQuery}&quot;</p>
               </div>
 
               {/* Loading State */}
@@ -368,9 +333,6 @@ export default function ExplorePage() {
                   ))}
                 </div>
               )}
-
-              {/* TikTok Embeds Section */}
-              
             </div>
           ) : (
             // Default Featured Stories View
@@ -381,9 +343,11 @@ export default function ExplorePage() {
                   className="bg-white border border-gray-200 rounded-2xl p-4 shadow-sm flex flex-col md:flex-row gap-4"
                 >
                   <div className="flex-shrink-0 w-full md:w-48 h-40 rounded-2xl overflow-hidden">
-                    <img
+                    <Image
                       src={story.image}
                       alt={story.title}
+                      width={192}
+                      height={160}
                       className="w-full h-full object-cover rounded-2xl"
                     />
                   </div>
@@ -406,9 +370,7 @@ export default function ExplorePage() {
                 <TikTokEmbed videoId="7466225678384467205" />
                 <TikTokEmbed videoId="7193908102444485914" />
               </div>
-
             </>
-            
           )}
         </div>
       </div>
@@ -426,10 +388,11 @@ export default function ExplorePage() {
                     {/* Black background behind the image */}
                     <div className="absolute inset-0 bg-black z-0"></div>
                     {/* Background Image with reduced opacity */}
-                    <img
+                    <Image
                       src={item.image}
                       alt={item.title}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-110 z-10 opacity-60"
+                      fill
+                      className="absolute inset-0 object-cover transition-transform duration-300 group-hover:scale-110 z-10 opacity-60"
                     />
                     {/* Text Overlay */}
                     <div className="absolute inset-0 z-20 p-4 flex flex-col justify-end">

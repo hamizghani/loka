@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { Eye, EyeOff, Mail, Lock, User, ArrowRight } from 'lucide-react';
 
 const LokaAuth = () => {
@@ -118,10 +119,12 @@ const LokaAuth = () => {
       <div className="min-h-screen bg-white flex items-center justify-center p-4">
         <div className="w-full max-w-md text-center">
           <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
-            <img 
+            <Image 
               src="/images/loka-logo.png" 
               alt="Loka Logo" 
-              className="h-16 w-auto mx-auto mb-4"
+              width={64}
+              height={64}
+              className="mx-auto mb-4"
             />
             <h2 className="text-2xl font-bold text-black mb-4">Welcome!</h2>
             <p className="text-gray-600 mb-6">You are successfully logged in.</p>
@@ -143,10 +146,12 @@ const LokaAuth = () => {
         {/* Auth Form */}
         <div className="bg-white border border-gray-200 rounded-2xl p-8 shadow-sm">
           <div className="text-center mb-8">
-            <img 
+            <Image 
               src="/images/loka-logo.png" 
               alt="Loka Logo" 
-              className="h-16 w-auto mx-auto mb-4"
+              width={64}
+              height={64}
+              className="mx-auto mb-4"
             />
             <p className="text-gray-600">
               {isLogin ? 'Welcome Back' : 'Create your account'}
@@ -280,7 +285,7 @@ const LokaAuth = () => {
           {/* Switch Mode */}
           <div className="mt-6 text-center">
             <p className="text-gray-600">
-              {isLogin ? "Don't have an account?" : "Already have an account?"}
+              {isLogin ? "Don&apos;t have an account?" : "Already have an account?"}
               <button
                 type="button"
                 onClick={switchMode}
@@ -295,7 +300,7 @@ const LokaAuth = () => {
         {/* Footer */}
         <div className="mt-8 text-center text-sm text-gray-500">
           <p>
-            By continuing, you agree to Loka's{' '}
+            By continuing, you agree to Loka&apos;s{' '}
             <a href="#" className="text-black hover:underline">Terms of Service</a>
             {' '}and{' '}
             <a href="#" className="text-black hover:underline">Privacy Policy</a>

@@ -1,6 +1,7 @@
 "use client";
 
 import Image from 'next/image';
+import Link from 'next/link';
 import Post from '@/components/Post';
 import UserSuggestion from '@/components/Profileholder1';
 import { useState } from 'react';
@@ -67,9 +68,9 @@ const mockUserData: {
         handle: "hamizghani",
         timestamp: "Jul 24",
         content:
-    `I’m Hamiz, an Acehnese from Banda Aceh. Last week I joined a Saman dance workshop to celebrate Maulid Nabi. In a dim village hall, twenty of us sat cross‑legged on the floor, our palms raised in prayer. When the ustadz finished reciting, the leader signaled the beat—and suddenly, synchronized claps echoed like rolling thunder. I’d practiced alone at home, but this was on another level: the dancers responded to each other without a single misstep.
+    `I&apos;m Hamiz, an Acehnese from Banda Aceh. Last week I joined a Saman dance workshop to celebrate Maulid Nabi. In a dim village hall, twenty of us sat cross‑legged on the floor, our palms raised in prayer. When the ustadz finished reciting, the leader signaled the beat—and suddenly, synchronized claps echoed like rolling thunder. I&apos;d practiced alone at home, but this was on another level: the dancers responded to each other without a single misstep.
     
-    That afternoon, sweat dripped down my face as I matched each clap, each stomp, each turn, trying to keep pace. Our voices rose in chorus when the rhythm built, echoing off wooden walls and banana‑leaf ceilings. Watching the older men’s expressions of devotion, I realized Saman is more than a performance—it’s a communal prayer, a reminder that our faith binds us tighter than blood.
+    That afternoon, sweat dripped down my face as I matched each clap, each stomp, each turn, trying to keep pace. Our voices rose in chorus when the rhythm built, echoing off wooden walls and banana‑leaf ceilings. Watching the older men&apos;s expressions of devotion, I realized Saman is more than a performance—it&apos;s a communal prayer, a reminder that our faith binds us tighter than blood.
     
     Afterwards, we broke bread together: sweet pulut with serikaya, steaming coffee, and laughter. I left with callused palms and a full heart, determined to teach Saman to my younger cousins. In a world where traditions fade, I carry this dance in my skin, so that Acehnese youth remember the power of unity through rhythm.`,
         image: "/images/image31.png",
@@ -102,13 +103,13 @@ const mockUserData: {
         handle: "hamizghaniiii",
         timestamp: "Jul 25",
         content: 
-    `I’m Hamiz, a Surabayan now living in Jakarta. Every Idul Fitri, the city may be quieter, but my heart echoes with the sounds of kampung Surabaya—calls to prayer at dawn, the rustle of sarung, and the laughter of cousins preparing ketupat in the kitchen.
+    `I&apos;m Hamiz, a Surabayan now living in Jakarta. Every Idul Fitri, the city may be quieter, but my heart echoes with the sounds of kampung Surabaya—calls to prayer at dawn, the rustle of sarung, and the laughter of cousins preparing ketupat in the kitchen.
 
 As a child, I remember helping my mother pound spices for opor ayam while my father arranged the sajadahs for family prayer. The scent of clove and lemongrass would drift through the house, mixing with the early morning breeze. Even now in Jakarta, I recreate those moments in my small apartment—boiling lontong, blending sambal, and video-calling my parents to make sure everything tastes just like home.
 
 After sholat Ied, I visit friends from East Java scattered across the city. We share stories in logat Suroboyoan, swap childhood memories, and laugh over bowls of rawon and tahu tek. For a brief moment, Jakarta feels like Surabaya—familiar, warm, loud in all the right ways.
 
-Each Lebaran, I’m reminded that tradition isn’t tied to place—it lives in us, in the way we speak, the dishes we cook, the prayers we recite. One day, I hope to pass on these pieces of Surabaya to my future children, so even far from kampung halaman, they’ll always carry its spirit within them.`,
+Each Lebaran, I&apos;m reminded that tradition isn&apos;t tied to place—it lives in us, in the way we speak, the dishes we cook, the prayers we recite. One day, I hope to pass on these pieces of Surabaya to my future children, so even far from kampung halaman, they&apos;ll always carry its spirit within them.`,
         replies: 14,
         retweets: 5,
         upvotes: 320,
@@ -170,7 +171,7 @@ export default function ProfilePage({ params }: ProfilePageProps) {
     {
       id: 1,
       title: "Ethnicity",
-      description: "Explore Indonesia’s rich tapestry of over 1,300 ethnic groups and their unique customs.",
+      description: "Explore Indonesia's rich tapestry of over 1,300 ethnic groups and their unique customs.",
       image: "/images/image21.png"
     },
     {
@@ -182,7 +183,7 @@ export default function ProfilePage({ params }: ProfilePageProps) {
     {
       id: 3,
       title: "Language",
-      description: "Discover the 700+ regional languages that shape Indonesia’s cultural identity.",
+      description: "Discover the 700+ regional languages that shape Indonesia's cultural identity.",
       image: "/images/image23.png"
     },
     {
@@ -200,7 +201,7 @@ export default function ProfilePage({ params }: ProfilePageProps) {
     {
       id: 6,
       title: "Religion",
-      description: "Navigate Indonesia’s islands and provinces, each boasting distinct landscapes and traditions.",
+      description: "Navigate Indonesia's islands and provinces, each boasting distinct landscapes and traditions.",
       image: "/images/image26.png"
     },
   ];
@@ -269,9 +270,9 @@ export default function ProfilePage({ params }: ProfilePageProps) {
               {userData.starTier && (
                 <div className="mt-2 flex justify-center items-center gap-3">
                   {renderStarBadge(userData.starTier)}
-                  <a href="/card" className="inline-block px-4 py-1.5 rounded-full bg-red-600 text-white font-semibold text-sm shadow hover:bg-red-700 transition ml-2">
+                  <Link href="/card" className="inline-block px-4 py-1.5 rounded-full bg-red-600 text-white font-semibold text-sm shadow hover:bg-red-700 transition ml-2">
                     View Culture Card
-                  </a>
+                  </Link>
                 </div>
               )}
             </div>
@@ -358,10 +359,11 @@ export default function ProfilePage({ params }: ProfilePageProps) {
                     {/* Black background behind the image */}
                     <div className="absolute inset-0 bg-black z-0"></div>
                     {/* Background Image with reduced opacity */}
-                    <img
+                    <Image
                       src={item.image}
                       alt={item.title}
-                      className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 group-hover:scale-110 z-10 opacity-60"
+                      fill
+                      className="absolute inset-0 object-cover transition-transform duration-300 group-hover:scale-110 z-10 opacity-60"
                     />
                     {/* Text Overlay */}
                     <div className="absolute inset-0 z-20 p-4 flex flex-col justify-end">
