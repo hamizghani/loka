@@ -17,7 +17,7 @@ export default function TikTokEmbed({ videoId }: TikTokEmbedProps) {
       document.body.appendChild(script);
     } else {
       // Re-initialize embed if script already present
-      // @ts-expect-error
+      // @ts-expect-error: window.tiktokEmbedLoad is an undocumented global from TikTok's embed script
       if (window?.tiktokEmbedLoad) {
         // Do nothing – TikTok automatically detects new embeds
       }
