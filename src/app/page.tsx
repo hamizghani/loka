@@ -52,7 +52,7 @@ const forYouItems = [
 const initialPosts: PostType[] = [
     {
         id: 1,
-        avatar: "/images/image21.png",
+        avatar: "/images/image1.png",
         username: "Gung",
         handle: "gung",
         timestamp: "Jul 25",
@@ -71,7 +71,7 @@ const initialPosts: PostType[] = [
       },
       {
         id: 2,
-        avatar: "image2.png",
+        avatar: "/images/image2.png",
         username: "Hamiz Ghani",
         handle: "hamizghani",
         timestamp: "Jul 24",
@@ -90,7 +90,7 @@ const initialPosts: PostType[] = [
       },
       {
         id: 3,
-        avatar: "image3.png",
+        avatar: "/images/image3.png",
         username: "Siti Rahma",
         handle: "sitirahma",
         timestamp: "Jul 23",
@@ -109,7 +109,7 @@ const initialPosts: PostType[] = [
       },
       {
         id: 4,
-        avatar: "image4.png",
+        avatar: "/images/image4.png",
         username: "Putri Sari",
         handle: "putrisari",
         timestamp: "Jul 22",
@@ -128,7 +128,7 @@ const initialPosts: PostType[] = [
       },
       {
         id: 5,
-        avatar: "image5.png",
+        avatar: "/images/image5.png",
         username: "Asep Haryadi",
         handle: "asepharyadi",
         timestamp: "Jul 21",
@@ -147,7 +147,7 @@ const initialPosts: PostType[] = [
       },
       {
         id: 6,
-        avatar: "image6.png",
+        avatar: "/images/image6.png",
         username: "Debora Silalahi",
         handle: "deborasilalahi",
         timestamp: "Jul 20",
@@ -166,7 +166,7 @@ const initialPosts: PostType[] = [
       },
       {
         id: 7,
-        avatar: "image7.png",
+        avatar: "/images/image7.png",
         username: "Rudi Pratama",
         handle: "rudipratama",
         timestamp: "Jul 19",
@@ -185,7 +185,7 @@ const initialPosts: PostType[] = [
       },
       {
         id: 8,
-        avatar: "image8.png",
+        avatar: "/images/image8.png",
         username: "Martha Wanggai",
         handle: "marthawanggai",
         timestamp: "Jul 18",
@@ -204,7 +204,7 @@ const initialPosts: PostType[] = [
       },
       {
         id: 9,
-        avatar: "image9.png",
+        avatar: "/images/image9.png",
         username: "Ilham Faisal",
         handle: "ilhamfaisal",
         timestamp: "Jul 17",
@@ -223,7 +223,7 @@ const initialPosts: PostType[] = [
       },
       {
         id: 10,
-        avatar: "image10.png",
+        avatar: "/images/image10.png",
         username: "Siti Kholifah",
         handle: "sitikholifah",
         timestamp: "Jul 16",
@@ -242,7 +242,7 @@ const initialPosts: PostType[] = [
       },
       {
         id: 11,
-        avatar: "image11.png",
+        avatar: "/images/image11.png",
         username: "Hendra Putra",
         handle: "hendraputra",
         timestamp: "Jul 15",
@@ -261,7 +261,7 @@ const initialPosts: PostType[] = [
       },
       {
         id: 12,
-        avatar: "image12.png",
+        avatar: "/images/image12.png",
         username: "Ferry Sangallo",
         handle: "ferrysangallo",
         timestamp: "Jul 14",
@@ -280,7 +280,7 @@ const initialPosts: PostType[] = [
       },
       {
         id: 13,
-        avatar: "image13.png",
+        avatar: "/images/image13.png",
         username: "Linda Tambunan",
         handle: "lindatambunan",
         timestamp: "Jul 13",
@@ -299,7 +299,7 @@ const initialPosts: PostType[] = [
       },
       {
         id: 14,
-        avatar: "image14.png",
+        avatar: "/images/image14.png",
         username: "Arman Syah",
         handle: "armansyah",
         timestamp: "Jul 12",
@@ -318,7 +318,7 @@ const initialPosts: PostType[] = [
       },
       {
         id: 15,
-        avatar: "image15.png",
+        avatar: "/images/image15.png",
         username: "Dewi Kusuma",
         handle: "dewikusuma",
         timestamp: "Jul 11",
@@ -337,7 +337,7 @@ As dawn broke, we danced in traditional Tenggerese attire—bright shawls and si
       },
       {
         id: 16,
-        avatar: "image16.png",
+        avatar: "/images/image16.png",
         username: "Kevin Tan",
         handle: "kevintan",
         timestamp: "Jul 10",
@@ -356,7 +356,7 @@ As dawn broke, we danced in traditional Tenggerese attire—bright shawls and si
       },
       {
         id: 17,
-        avatar: "image17.png",
+        avatar: "/images/image17.png",
         username: "Nur Aisyah",
         handle: "nuraisyah",
         timestamp: "Jul 9",
@@ -375,7 +375,7 @@ As dawn broke, we danced in traditional Tenggerese attire—bright shawls and si
       },
       {
         id: 18,
-        avatar: "image18.png",
+        avatar: "/images/image18.png",
         username: "Rizki Nur",
         handle: "rizkinur",
         timestamp: "Jul 8",
@@ -394,7 +394,7 @@ As dawn broke, we danced in traditional Tenggerese attire—bright shawls and si
       },
       {
         id: 19,
-        avatar: "image19.png",
+        avatar: "/images/image19.png",
         username: "Amalia Umar",
         handle: "amaliaumar",
         timestamp: "Jul 7",
@@ -413,7 +413,7 @@ As dawn broke, we danced in traditional Tenggerese attire—bright shawls and si
       },
       {
         id: 20,
-        avatar: "image20.png",
+        avatar: "/images/image20.png",
         username: "Bayu Nugroho",
         handle: "bayunugroho",
         timestamp: "Jul 6",
